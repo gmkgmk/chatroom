@@ -1,0 +1,20 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "在线聊天",
+  "main": "app.js",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "uuid": "^3.1.0",
+    "websocket": "^1.0.25",
+    "ws": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.5"
+  },
+  "scripts": {
+    "start": "nodemon  app.js"
+  },
+  "author": "goodWin",
+  "license": "ISC"
+}
