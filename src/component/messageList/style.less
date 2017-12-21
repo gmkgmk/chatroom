@@ -1,0 +1,92 @@
+.talkList {
+  height:70vh;
+  overflow-y: scroll;
+  .ant-list-item-meta-avatar {
+    margin-right: 0;
+    margin-left: 16px;
+  }
+  .ant-list-item-meta-content {
+    position: relative;
+    padding: 9px 13px;
+    background-color: #b2e281;
+    max-width: 500px;
+    min-height: 1em;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    &::before {
+      top: 14px;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      content: " ";
+    }
+  }
+}
+.speckFromOther {
+  padding-left: 30px;
+  .ant-list-item-meta-avatar {
+    margin-right: 16px;
+    margin-left: 0px;
+  }
+  .ant-list-item-meta-content {
+    &::before {
+      right: 100%;
+      border-width: 6px 8px 6px 0;
+      border-color: transparent #b2e281 transparent transparent;
+    }
+  }
+}
+.speckFromOwn {
+  padding-right: 30px;
+  &.ant-list-item {
+    flex-direction: row-reverse;
+  }
+  .ant-list-item-meta {
+    flex-direction: row-reverse;
+  }
+  .ant-list-item-meta-avatar {
+    margin-right: 0;
+    margin-left: 16px;
+  }
+  .ant-list-item-meta-content {
+    &::before {
+      left: 100%;
+      border-width: 6px 0 6px 8px;
+      border-color: transparent transparent transparent #b2e281;
+      content: " ";
+    }
+  }
+}
+
+
+/* 设置垂直滚动条的宽度和水平滚动条的高度 */
+.talkList::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+/* 设置滚动条的滑轨 */
+.talkList::-webkit-scrollbar-track {
+    background-color: #ddd;
+}
+
+/* 滑块 */
+.talkList::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* 滑轨两头的监听按钮 */
+.talkList::-webkit-scrollbar-button {
+  background-color: #888;
+  display: none;
+}
+
+/* 横向滚动条和纵向滚动条相交处尖角 */
+.talkList::-webkit-scrollbar-corner {
+  /*background-color: black;*/
+}

@@ -9,63 +9,11 @@
 </head>
 
 <body>
+  <div id="app"></div>
   <ul id="person"></ul>
   <ul id="messages"></ul>
-  <input type="text" id="input">
-  <input type="button" id="btn" value="说话">
-  <script>
-    var person = null
-    var socket = new WebSocket('ws://localhost:8081');
-    const message = document.querySelector("#messages")
-    const personBox = document.querySelector("#messages")
-    const input = document.querySelector("#input")
-    const btn = document.querySelector("#btn")
-
-    socket.onopen = function (event) {
-      console.log('WebSocket is connected.');
-      socket.send("Here's some text that the server is urgently awaiting!");
-    };
-
-    socket.onmessage = function (event) {
-      let message = JSON.parse(event.data);
-      if (message.type === "user") {
-        console.log(message)
-        if (!person) {
-          person = message
-        }
-        insert(`id是${message.id},编号是${message.key}`)
-        console.log('WebSocket is connected.');
-      }
-      if (message.type === "mes") {
-        insertMessage(`id為${message.person}的先生${message.message}`)
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ' + error);
-    };
-
-    function insert(html) {
-      let li = document.createElement("li")
-      li.innerHTML = html + "加入了房间";
-      personBox.appendChild(li)
-    }
-    function insertMessage(html) {
-      let li = document.createElement("li")
-      li.innerHTML = html;
-      message.appendChild(li)
-    }
-    btn.addEventListener("click", function (e) {
-      const meg = input.value;
-      input.value = "";
-      socket.send(JSON.stringify({
-        type: 1,
-        user: person.key,
-        msg: meg
-      }))
-    })
-
-  </script>
+  <script src="./src/index.js"></script>
+ 
 </body>
 
 </html>

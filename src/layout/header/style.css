@@ -1,0 +1,17 @@
+#header {
+  display: flex;
+  height: 10vh;
+  border-bottom: 1px solid #d6d6d6;
+  background-color: #eee;
+  justify-content: space-between;
+}
+#header .ant-layout-header {
+  line-height: 10vh;
+}
+#header .userInfo {
+  align-items: center;
+  display: flex;
+}
+#header .userInfo .ant-avatar {
+  margin-left: 20px;
+}

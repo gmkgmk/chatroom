@@ -6,8 +6,6 @@ const onError = require("../model/Error");
 
 
 const create = server => {
-  console.log("執行一次");
-  
   new createWebsocket({
     server,
     onConnection,
