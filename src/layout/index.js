@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import Header from "./header";
 import Footer from "./footer";
 import Content from "./content";
+import "./index.css";
 
 class LayoutComponent extends React.Component {
   constructor(props) {
@@ -11,11 +12,13 @@ class LayoutComponent extends React.Component {
   render() {
     const { init } = this.props;
     return (
-      <Layout className="layout">
-        <Header {...init} />
-        <Content {...init} />
-        <Footer {...init} />
-      </Layout>
+      <div className="layoutBg">
+        <Layout className="layout">
+          <Header {...init} />
+          <Content {...init} />
+          <Footer {...init} />
+        </Layout>
+      </div>
     );
   }
 }

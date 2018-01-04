@@ -33,8 +33,18 @@ class createWebsocket {
   }
   createPerson(ws) {
     let newPerson = this.onConnection();
-    this.person = newPerson;
+    this.personList.push(newPerson);
     ws.send(newPerson);
+    console.log(this.personList);
+  }
+  findUserByKey(key) {
+    let user = {};
+    this.personList.forEach(item => {
+      if (item.includes(key)) {
+        user = item;
+      }
+    });
+    return user;
   }
 }
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { Layout } from "antd";
-import InfiniteScroll from 'react-infinite-scroller'
 const { Content } = Layout;
 import "./style.css";
 import MessageList from "../../component/messageList";

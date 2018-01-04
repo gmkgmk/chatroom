@@ -17,7 +17,6 @@ class HeaderComponent extends React.Component {
     }
     return (
       <Header id="header">
-        <div className="logo">在线聊天室:</div>
         <div className="userInfo">
           欢迎你:{name}
           {avatar ? <Avatar src={avatar} />: <Avatar icon="user" /> }

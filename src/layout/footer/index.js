@@ -41,9 +41,16 @@ class FooterComponent extends React.Component {
           value={this.state.msg}
           onChange={this.updateMsg.bind(this)}
         />
-        <Button type="primary" onClick={this.postMsg.bind(this)}>
-          发送
-        </Button>
+        <section className="action">
+          <span className="desc">按下Ctrl+Enter换行</span>
+          <Button
+            type="primary"
+            onClick={this.postMsg.bind(this)}
+            className="btn_send"
+          >
+            发送
+          </Button>
+        </section>
       </Footer>
     );
   }

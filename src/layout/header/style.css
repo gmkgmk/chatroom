@@ -3,7 +3,8 @@
   height: 10vh;
   border-bottom: 1px solid #d6d6d6;
   background-color: #eee;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
 }
 #header .ant-layout-header {
   line-height: 10vh;

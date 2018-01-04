@@ -1,0 +1,11 @@
+.layout {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 1000px;
+  min-width: 800px;
+  height: 100%;
+  position: relative;
+}
+.layoutBg {
+  background: url("../../static/images/layout_bg.jpg") no-repeat 50%;
+}

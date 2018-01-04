@@ -1,4 +1,32 @@
 #footer {
-  background-color: #E8EBE4;
-  height: 20vh;
+  background-color: #eee;
+  height: 180px;
+  margin-right: 19px;
+  border-top: 1px solid #d6d6d6;
+}
+#footer .ant-input {
+  background: #eee;
+  border: 0;
+}
+#footer .btn_send {
+  background-color: #f8f8f8;
+  color: #222;
+  padding-left: 30px;
+  padding-right: 30px;
+  outline: 0;
+  border: 1px solid #c1c1c1;
+  padding: 3px 20px;
+  font-size: 14px;
+}
+#footer .btn_send:hover {
+  background-color: #f1f1f1;
+}
+#footer .desc {
+  color: #888;
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 7px;
+}
+#footer .action {
+  text-align: right;
 }
