@@ -70,12 +70,11 @@ const createPerson = id => {
   const name = createName(nameMap);
   const avatar = createAvatar(avatarMap);
   const preson = {
-    type: "user",
-    id: id,
     key: key,
     name: name,
     avatar: avatar,
-    time: new Date()
+    time: new Date(),
+    friendList: []
   };
   return preson;
 };

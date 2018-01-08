@@ -1,8 +1,15 @@
-const createUser = require("./createUser");
+const createUser = require("./user/createUser");
+const UserManage = require("./user/userManage");
 
 const onConnection = function(ws, req) {
-  console.log("链接");
-  let person = createUser(this.id++);
-  return JSON.stringify(person);
+  let personInfo = createUser();
+  var person = new UserManage(personInfo);
+
+  this.personList.push(person);
+  const message = {
+    type: "userInfo",
+    person
+  };
+  ws.send(JSON.stringify(message));
 };
 module.exports = onConnection;

@@ -24,23 +24,23 @@ class createWebsocket {
       // 连接以后建立用户并发送给前端
       this.createPerson.call(this, ws);
 
-      // this.wsServer.clients.forEach(function each(client) {
-      //   if ( client.readyState === WebSocket.OPEN) {
-      //     client.send(newPerson);
-      //   }
-      // });
+      this.onConnection.call(this, ws);
+      this.wsServer.clients.forEach(client => {
+        if (client.readyState) {
+          const message = JSON.stringify({
+            type: "userlist",
+            personList: this.personList
+          });
+          client.send(message);
+        }
+      });
     });
   }
-  createPerson(ws) {
-    let newPerson = this.onConnection();
-    this.personList.push(newPerson);
-    ws.send(newPerson);
-    console.log(this.personList);
-  }
+  createPerson(ws) {}
   findUserByKey(key) {
     let user = {};
     this.personList.forEach(item => {
-      if (item.includes(key)) {
+      if (item.key === key) {
         user = item;
       }
     });

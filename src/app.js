@@ -2,7 +2,7 @@
  * @Author: guo.mk 
  * @Date: 2017-12-19 17:22:37 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2017-12-20 19:13:45
+ * @Last Modified time: 2018-01-07 22:17:15
  */
 import React from "react";
 import MainLayou from "./layout";
@@ -13,26 +13,38 @@ class SocketComponent extends React.Component {
     this.state = {
       socket: null,
       userInfo: null,
-      messageList: []
+      messageList: [],
+      userList: []
     };
   }
 
   createUser(event) {
-    const { userInfo } = this.state;
+    const { userInfo, messageList, userList } = this.state;
     let message = JSON.parse(event.data);
-    if (message.type === "user") {
-      if (!userInfo) {
-      this.setState({
-        userInfo: message
-      });
-    }
-    }
-    if (message.type === "mes") {
-      const {messageList} = this.state;
-      messageList.push(message);
-      this.setState({
-        messageList
-      });
+
+    const { type } = message;
+    switch (type) {
+      case "userInfo":
+        if (!userInfo) {
+          this.setState({
+            userInfo: message.person
+          });
+        }
+        break;
+      case "mes":
+        messageList.push(message);
+        this.setState({
+          messageList
+        });
+        break;
+      case "userlist":
+        const { personList } = message;
+        this.setState({
+          userList:personList
+        });
+        break;
+      default:
+        throw Error("参数错误");
     }
     message = null;
   }
@@ -40,7 +52,7 @@ class SocketComponent extends React.Component {
   componentDidMount() {
     const socket = new WebSocket("ws://localhost:8080");
     if (socket.readyState === 0) {
-        socket.onmessage = this.createUser.bind(this);
+      socket.onmessage = this.createUser.bind(this);
     }
     this.state.socket = socket;
   }

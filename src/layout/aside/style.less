@@ -1,0 +1,46 @@
+.ant-layout.ant-layout-has-sider {
+  flex-direction: row;
+}
+#aside {
+  position: relative;
+  float: left;
+  background: #2e3238;
+  .chat_item {
+    overflow: hidden;
+    padding: 12px 18px 11px;
+    border-bottom: 1px solid #292c33;
+    cursor: pointer;
+    position: relative;
+    .avatar {
+      float: left;
+      margin-right: 10px;
+      position: relative;
+    }
+    .nickname {
+      font-weight: 400;
+      font-size: 13px;
+      color: #fff;
+      line-height: 20px;
+    }
+    .img {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+    }
+    .info{
+      float: left;
+    }
+    .nickname_text {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}

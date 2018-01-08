@@ -13,7 +13,7 @@ class ContentComponent extends React.Component {
   render() {
     return (
       <Content>
-          <MessageList {...this.props} />
+        <MessageList {...this.props} />
       </Content>
     );
   }

@@ -25,8 +25,7 @@ const onMessage = function(ws, event) {
   const { user: { key }, msg } = messageFromClien;
   switch (type) {
     case 1:
-      let person = JSON.parse(this.findUserByKey(key)) ;
-      console.log(person)
+      let person = this.findUserByKey(key) ;
       let message = createMessage(msg, person);
       this.wsServer.clients.forEach(function each(client) {
         client.send(JSON.stringify(message));
