@@ -3,7 +3,6 @@ import "./style.css";
 
 const SiderItem = (item = {}, props = {}) => {
   const { nameClass } = props;
-  console.log("item", item);
   if (item) {
     return (
       <section>

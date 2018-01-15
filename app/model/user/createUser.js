@@ -65,7 +65,7 @@ function createAvatar(avatarMap) {
   );
 }
 
-const createPerson = id => {
+const createPerson = () => {
   const key = uuid.v4();
   const name = createName(nameMap);
   const avatar = createAvatar(avatarMap);

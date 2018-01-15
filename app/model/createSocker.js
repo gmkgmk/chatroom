@@ -1,15 +1,9 @@
-const WebSocket = require("ws");
-
+const socketIo = require("socket.io");
 class createWebsocket {
   constructor({ server, onConnection, onMessage, onClose, onError }) {
-    this.megList = [];
-    this.id = 0;
-    this.personList = [];
-    this.person = {};
+    this.personList = new Map();
+    this.io = socketIo(server);
 
-    this.wsServer = new WebSocket.Server({
-      server
-    });
     this.onConnection = onConnection;
     this.onMessage = onMessage;
     this.onClose = onClose;
@@ -17,26 +11,15 @@ class createWebsocket {
     this.init();
   }
   init() {
-    this.wsServer.on("connection", (ws, req) => {
-      ws.on("message", this.onMessage.bind(this, ws));
-      ws.on("close", this.onClose);
-      ws.on("error", this.onError);
-      // 连接以后建立用户并发送给前端
-      this.createPerson.call(this, ws);
-
-      this.onConnection.call(this, ws);
-      this.wsServer.clients.forEach(client => {
-        if (client.readyState) {
-          const message = JSON.stringify({
-            type: "userlist",
-            personList: this.personList
-          });
-          client.send(message);
-        }
-      });
+    this.io.on("connection", socket => {
+      this.onConnection.call(this, socket, this.io);
+      this.onMessage(socket, this.io);
+      // 断开连接
+      socket.on("disconnecting", this.onClose);
+      // 发生错误
+      socket.on("error", this.onError);
     });
   }
-  createPerson(ws) {}
   findUserByKey(key) {
     let user = {};
     this.personList.forEach(item => {

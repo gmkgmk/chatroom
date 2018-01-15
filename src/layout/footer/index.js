@@ -17,21 +17,37 @@ class FooterComponent extends React.Component {
       msg: value
     });
   }
-  postMsg() {
+  postAll() {
     const { socket, userInfo } = this.props;
     const { msg } = this.state;
     if (!msg) return;
-    socket.send(
-      JSON.stringify({
-        type: 1,
-        user: userInfo,
-        msg: msg
-      })
-    );
+    socket.emit("client:postAll", {
+      msg,
+      person:userInfo
+    });
+
     this.setState({
       msg: null
     });
   }
+  // postMsg() {
+  //   const { socket, userInfo, userID } = this.props;
+  //   const { msg } = this.state;
+  //   if (!msg) return;
+
+  //   socket.send(
+  //     JSON.stringify({
+  //       type: "socket:single",
+  //       user: userInfo,
+  //       userID: "1ee08701-7d4e-42b2-b3d5-c43aa4d9a654",
+  //       msg: msg
+  //     })
+  //   );
+
+  //   this.setState({
+  //     msg: null
+  //   });
+  // }
   render() {
     return (
       <Footer id="footer">
@@ -45,7 +61,7 @@ class FooterComponent extends React.Component {
           <span className="desc">按下Ctrl+Enter换行</span>
           <Button
             type="primary"
-            onClick={this.postMsg.bind(this)}
+            onClick={this.postAll.bind(this)}
             className="btn_send"
           >
             发送

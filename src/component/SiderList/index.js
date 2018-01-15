@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./style.css";
 import List from "./List";
+import { connect } from 'dva';
+
 class SiderList extends Component {
   constructor(props) {
     super(props);
@@ -8,14 +10,17 @@ class SiderList extends Component {
   }
   render() {
     const { userList } = this.props;
-    let renderList = null;
-    if (userList) {
-      renderList = userList.map((item, idx) => {
-        return <List item={item} key={idx} />;
-      });
+
+    let renderList = [];
+    if(userList.length>0){
+      renderList=userList.map((item,idx)=>{
+        return List(item,idx)
+      })
     }
     return <section>{renderList}</section>;
   }
 }
-
-export default SiderList;
+const mapStateToProps = ({userList}) => {
+  return userList || []
+}
+export default connect(mapStateToProps)(SiderList);

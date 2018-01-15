@@ -5,12 +5,16 @@
   "main": "app.js",
   "dependencies": {
     "antd": "^3.0.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "dva": "^2.1.0",
     "koa": "^2.4.1",
+    "koa-static": "^4.0.2",
     "less": "^2.7.3",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "socket.io": "^2.0.4",
     "uuid": "^3.1.0",
     "websocket": "^1.0.25",
     "ws": "^3.3.2"

@@ -10,15 +10,14 @@ class LayoutComponent extends React.Component {
     super(props);
   }
   render() {
-    const { init } = this.props;
     return (
       <section className="layoutBg">
         <Layout className="main">
-          {init ? <Aside {...init} /> : null}
+          <Aside />
           <Layout className="layout">
-            <Header {...init} />
-            <Content {...init} />
-            <Footer {...init} />
+            <Header />
+            <Content />
+            <Footer />
           </Layout>
         </Layout>
       </section>

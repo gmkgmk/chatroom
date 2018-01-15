@@ -25,16 +25,21 @@ class SiderComponent extends Component {
   }
   render() {
     const { userList, userInfo } = this.props;
-    console.log(userInfo)
     return (
       <Sider width={280} id="aside">
-        {SiderHeader(userInfo)}
+        <SiderHeader/>
         <SiderSearch />
-        <SiderList userList={userList} />
+        <SiderList />
       </Sider>
     );
   }
-  componentDidMount() {}
+  componentDidMount() { }
 }
 
+
+const mapStateToProps = ({ user }) => {
+  const userInfo = user;
+  return userInfo || {}
+}
+// export default connect(mapStateToProps)(SiderComponent);
 export default SiderComponent;

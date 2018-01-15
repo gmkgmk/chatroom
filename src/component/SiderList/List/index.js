@@ -1,20 +1,16 @@
 import React, { Component } from "react";
+import SiderItems from "../../SiderItems";
 import "./style.css";
 
-const SiderCompnentList = (props) => {
-  const {item} = props
+
+const SiderCompnentList = SiderItems => (item, key) => {
   return (
-    <article data-id={item.key} className={`chat_item`}>
-      <div className="avatar">
-        <img src={item.avatar} className="img" />
-      </div>
-      <div className={`info`}>
-        <h3 className={`nickname`}>
-          <span className={`nickname_text`}>{item.name}</span>
-        </h3>
-      </div>
+    <article data-id={item.key} key={key} className={`chat_item`}>
+      {SiderItems(item, { nameClass: `nickname_text` })}
     </article>
   );
 };
 
-export default SiderCompnentList;
+const WithSiderCompnentList = SiderCompnentList(SiderItems);
+
+export default WithSiderCompnentList;

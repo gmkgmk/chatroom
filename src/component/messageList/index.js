@@ -1,24 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { List, Avatar } from "antd";
 import "./style.css";
 
-const data = [
-  {
-    title: "Ant Design Title 1"
-  },
-  {
-    title: "Ant Design Title 2"
-  },
-  {
-    title: "Ant Design Title 3"
-  },
-  {
-    title: "Ant Design Title 4"
-  }
-];
-
-class ListComponent extends React.Component {
+class ListComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
