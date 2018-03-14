@@ -30,3 +30,18 @@
 #footer .action {
   text-align: right;
 }
+#footer .chat-content {
+  height: 6em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 20px;
+  outline: none;
+  border: 0;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: pre-wrap;
+  word-break: normal;
+}

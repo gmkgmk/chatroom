@@ -16,9 +16,10 @@ const userList = {
   },
   effects: {
     *init({ userList }, { put, select }) {
+
       yield put({
         type: "set",
-        payload: {userList}
+        payload: { userList }
       });
     }
   }

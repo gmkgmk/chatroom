@@ -11,6 +11,7 @@ const user = {
   },
   reducers: {
     set(state, { payload }) {
+      
       let result = {
         ...state,
         ...payload
@@ -20,10 +21,10 @@ const user = {
   },
   effects: {
     * init({ userInfo }, { put, select }) {
-      const {person} =userInfo;
+      const {user} =userInfo;
       yield put({
         type: "set",
-        payload:person
+        payload:user
       });
     }
   },

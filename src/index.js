@@ -6,6 +6,7 @@ import createHistory from "history/createBrowserHistory";
 import socket from "./model/socket";
 import userInfo from "./model/userInfo";
 import userList from "./model/userList";
+import messageModel from "./model/message";
 
 const app = dva({
   history: createHistory(),
@@ -16,6 +17,7 @@ const app = dva({
 
 app.model(userInfo);
 app.model(userList);
+app.model(messageModel);
 app.model(socket);
 app.router(() => <Root  />);
 app.start("#app");

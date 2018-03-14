@@ -3,6 +3,7 @@ import "./style.css";
 import List from "./List";
 import { connect } from 'dva';
 
+
 class SiderList extends Component {
   constructor(props) {
     super(props);
@@ -12,15 +13,15 @@ class SiderList extends Component {
     const { userList } = this.props;
 
     let renderList = [];
-    if(userList.length>0){
-      renderList=userList.map((item,idx)=>{
-        return List(item,idx)
+    if (userList.length > 0) {
+      renderList = userList.map((item, idx) => {
+        return List(item, idx)
       })
     }
-    return <section>{renderList}</section>;
+    return <section className={`siderList`}>{renderList}</section>;
   }
 }
-const mapStateToProps = ({userList}) => {
+const mapStateToProps = ({ userList }) => {
   return userList || []
 }
 export default connect(mapStateToProps)(SiderList);

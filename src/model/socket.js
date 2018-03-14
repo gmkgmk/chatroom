@@ -2,7 +2,7 @@
  * @Author: guo.mk 
  * @Date: 2018-01-14 22:16:01 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-01-15 21:13:31
+ * @Last Modified time: 2018-02-23 18:29:03
  */
 import api from "../api";
 import io from "socket.io-client";
@@ -10,7 +10,7 @@ import io from "socket.io-client";
 const socket = {
   namespace: "socket",
   state: {
-    socket: null
+    io :null
   },
   reducers: {
     set(state, { payload }) {
@@ -22,10 +22,11 @@ const socket = {
     }
   },
   effects: {
-    *init({ }, { put }) {
+    *init({socket} , { put }) {
+      const io = socket
       yield put({
         type: "set",
-        payload: socket
+        payload: {io}
       });
     },
     *initUser({ userInfo }, { call, put, select }) {
@@ -39,20 +40,28 @@ const socket = {
         type: "userList/init",
         userList
       });
+    },
+    *initMessage({ message }, { call, put, select }) {
+      yield put({
+        type: "message/init",
+        message
+      });
     }
   },
   subscriptions: {
     init({ dispatch }) {
-      // dispatch({
-      //   type: "init"
-      // });
       let socket
       try {
         socket = io(api.url);
       } catch (error) {
         console.log(error)
       }
+      
       if (!socket) return
+      console.log(socket)
+      socket.on("res", data => {
+        console.log("data",data)
+       });
       socket.once("userInfo", data => {
         dispatch({
           type: "initUser",
@@ -66,7 +75,17 @@ const socket = {
         });
       });
       socket.on("server:message", data => {
-
+        console.log(data)
+        dispatch({
+          type: "initMessage",
+          message: data
+        });
+      });
+      socket.on('connect', () => {
+        dispatch({
+          type: "init",
+          socket
+        });
       });
     }
   }

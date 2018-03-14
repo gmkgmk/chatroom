@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { List, Avatar } from "antd";
+import { connect } from 'dva';
 import "./style.css";
 
 class ListComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMe: false
+      isMe: false,
+      messageList: []
     };
   }
   renderItem(userInfo, item) {
     const { key } = userInfo;
+  
     const { person: { key: personKey, avatar } } = item;
     const isOwn = key === personKey;
     const ComponentClass = isOwn ? "speckFromOwn" : "speckFromOther";
+
     return (
       <List.Item className={` ${ComponentClass}`}>
         <List.Item.Meta
@@ -31,8 +35,8 @@ class ListComponent extends Component {
     }
   }
   render() {
-    const { socket, userInfo, messageList } = this.props;
-    const { isMe } = this.state;
+    const { user: person } = this.props;
+    const { isMe, messageList } = this.state;
     // 生成props
     const ListProps = {
       ref: "talkList",
@@ -43,13 +47,21 @@ class ListComponent extends Component {
       dataSource: messageList
     };
     return (
-      <List {...ListProps} renderItem={this.renderItem.bind(this, userInfo)} />
+      <List {...ListProps} renderItem={this.renderItem.bind(this, person)} />
     );
   }
-
   componentDidUpdate() {
     this.scrollHandle();
   }
-}
+  componentWillReceiveProps({ message }) {
+    if (!message) return false
 
-export default ListComponent;
+    const { messageList } = this.state
+    messageList.push(message)
+    this.setState({ messageList });
+  }
+}
+const mapStateToProps = ({ message: { message }, user }) => {
+  return { message, user } || []
+}
+export default connect(mapStateToProps)(ListComponent);
