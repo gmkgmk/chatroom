@@ -2,7 +2,7 @@
  * @Author: guo.mk 
  * @Date: 2018-01-14 22:16:01 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-02-23 18:29:03
+ * @Last Modified time: 2018-03-15 19:47:53
  */
 import api from "../api";
 import io from "socket.io-client";
@@ -10,7 +10,7 @@ import io from "socket.io-client";
 const socket = {
   namespace: "socket",
   state: {
-    io :null
+    io: null
   },
   reducers: {
     set(state, { payload }) {
@@ -22,16 +22,16 @@ const socket = {
     }
   },
   effects: {
-    *init({socket} , { put }) {
+    *init({ socket }, { put }) {
       const io = socket
       yield put({
         type: "set",
-        payload: {io}
+        payload: { io }
       });
     },
-    *initUser({ userInfo }, { call, put, select }) {
+    *initUser({ userInfo = {} }, { call, put, select }) {
       yield put({
-        type: "user/init",
+        type: "userInfo/init",
         userInfo
       });
     },
@@ -46,45 +46,74 @@ const socket = {
         type: "message/init",
         message
       });
+    },
+    // 初始化信息
+    *emptyInit({ }, { put }) {
+      yield put({
+        type: "userList/init",
+        userList: {}
+      });
+      yield put({
+        type: "message/init",
+        message: {}
+      });
+      yield put({
+        type: "user/signout"
+      });
     }
   },
   subscriptions: {
-    init({ dispatch }) {
-      let socket
-      try {
-        socket = io(api.url);
-      } catch (error) {
-        console.log(error)
-      }
-      
-      if (!socket) return
-      console.log(socket)
-      socket.on("res", data => {
-        console.log("data",data)
-       });
-      socket.once("userInfo", data => {
+    init({ dispatch, history }) {
+      history.listen(({ pathname }) => {
+        if (pathname === '/register') {
+          dispatch({
+            type: "emptyInit"
+          });
+        };
+        if (pathname !== '/chat') return;
         dispatch({
-          type: "initUser",
-          userInfo: data
+          type: "initUser"
         });
-      });
-      socket.on("userList", data => {
-        dispatch({
-          type: "initUserList",
-          userList: data
+        // const { location: { query = {} } } = history;
+        // const { userInfo = {} } = query
+        // dispatch({
+        //   type: "initUser",
+        //   userInfo
+        // });
+        let socket
+        try {
+          socket = io(api.url);
+        } catch (error) {
+          console.log(error)
+        }
+
+        if (!socket) return
+        socket.on("res", data => {
+          console.log("data", data)
         });
-      });
-      socket.on("server:message", data => {
-        console.log(data)
-        dispatch({
-          type: "initMessage",
-          message: data
+        // socket.once("userInfo", data => {
+        //   dispatch({
+        //     type: "initUser",
+        //     userInfo: data
+        //   });
+        // });
+        socket.on("userList", data => {
+          dispatch({
+            type: "initUserList",
+            userList: data
+          });
         });
-      });
-      socket.on('connect', () => {
-        dispatch({
-          type: "init",
-          socket
+        socket.on("server:message", data => {
+          dispatch({
+            type: "initMessage",
+            message: data
+          });
+        });
+        socket.on('connect', () => {
+          dispatch({
+            type: "init",
+            socket
+          });
         });
       });
     }

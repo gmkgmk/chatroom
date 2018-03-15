@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Layout } from "antd";
 const { Sider } = Layout;
+import { connect } from 'dva';
+
 import "./style.css";
 import SiderHeader from "../../component/SiderHeader";
 import SiderSearch from "../../component/SiderSearch";
@@ -37,9 +39,7 @@ class SiderComponent extends Component {
 }
 
 
-const mapStateToProps = ({ user }) => {
-  const userInfo = user;
+const mapStateToProps = ({ userInfo }) => {
   return userInfo || {}
 }
-// export default connect(mapStateToProps)(SiderComponent);
-export default SiderComponent;
+export default connect(mapStateToProps)(SiderComponent);

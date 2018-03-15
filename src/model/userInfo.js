@@ -1,7 +1,9 @@
 import api from "../api";
+import { get } from '../fetch'
+import { routerRedux } from 'dva/router';
 
-const user = {
-  namespace: "user",
+const userInfo = {
+  namespace: "userInfo",
   state: {
     name: "暂未登陆",
     key: "",
@@ -11,7 +13,7 @@ const user = {
   },
   reducers: {
     set(state, { payload }) {
-      
+
       let result = {
         ...state,
         ...payload
@@ -20,16 +22,26 @@ const user = {
     }
   },
   effects: {
-    * init({ userInfo }, { put, select }) {
-      const {user} =userInfo;
-      yield put({
-        type: "set",
-        payload:user
-      });
+    *init({ }, { put }) {
+      const { data: result, code } = yield register();
+      if (200 === code) {
+        yield put({
+          type: "set",
+          payload: result
+        });
+      } else {
+        yield put(routerRedux.push({
+          pathname: '/register'
+        }));
+      }
     }
   },
   subscriptions: {
   }
 };
-
-export default user;
+async function register() {
+  const result = await get(`${api.url}/api/v1/session`);
+  console.log(result)
+  return result
+}
+export default userInfo;

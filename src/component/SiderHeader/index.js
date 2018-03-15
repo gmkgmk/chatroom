@@ -7,9 +7,7 @@ const SiderHeader = SiderItems => item => {
   return <header className={`asideHead `}>{SiderItems(item, { nameClass: `display_name` })}</header>;
 };
 
-
-const mapStateToProps = ({ user }) => {
-  const userInfo = user;
+const mapStateToProps = ({ userInfo }) => {
   return userInfo || {}
 }
 

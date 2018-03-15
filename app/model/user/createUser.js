@@ -74,7 +74,7 @@ const createPerson = () => {
     name: name,
     avatar: avatar,
     time: new Date(),
-    friendList: []
+    friendList: ""
   };
   return preson;
 };

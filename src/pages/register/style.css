@@ -1,0 +1,39 @@
+.Register-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Register-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 7px;
+  display: flex;
+  justify-content: space-between;
+}
+.Register-form-body {
+  width: 340px;
+  padding: 20px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #d8dee2;
+}
+.Register-form-body .form-btn {
+  width: 100%;
+  margin-top: 24px;
+}
+.Register-form-body .title {
+  text-align: center;
+  margin: 10px;
+}
+.Register-form-body .ant-input-affix-wrapper {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.Register-form-body .label-link {
+  font-size: 12px;
+  color: #0366d6;
+  text-decoration: none;
+}

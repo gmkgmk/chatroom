@@ -22,7 +22,7 @@ class HeaderComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
-  return user || {}
+const mapStateToProps = ({ userInfo }) => {
+  return userInfo || {}
 }
 export default connect(mapStateToProps)(HeaderComponent);

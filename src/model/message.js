@@ -21,8 +21,8 @@ const message = {
     },
     *send({ payload }, { put, select }) {
       const { socket: { io }, user } = yield select(state => state);
-      io.emit("client:postAll", {
-        msg:payload,
+      io.emit("message", {
+        message:payload,
         person: user
       });
     }

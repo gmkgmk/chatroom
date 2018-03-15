@@ -1,28 +1,26 @@
 import React from "react";
+import Chat from './chat';
 import { Layout } from "antd";
-import Header from "./header";
-import Footer from "./footer";
-import Aside from "./aside";
-import Content from "./content";
+
+import Register from '../pages/register';
+import { connect } from 'dva';
+import { Switch, Route,Redirect } from 'dva/router';
 import "./index.css";
 class LayoutComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <section className="layoutBg">
         <Layout className="main">
-          <Aside />
-          <Layout className="layout">
-            <Header />
-            <Content />
-            <Footer />
-          </Layout>
+          <Switch>
+            <Route exact path='/chat' component={Chat} />
+            <Route path='/register' component={Register} />
+            <Redirect to="/register" /> 
+          </Switch>
         </Layout>
       </section>
     );
   }
 }
+
 
 export default LayoutComponent;
