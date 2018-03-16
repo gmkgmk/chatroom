@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { Layout, Input, Button } from "antd";
 const { TextArea } = Input;
 const { Footer } = Layout;
@@ -23,56 +24,50 @@ class FooterComponent extends React.Component {
   postAll() {
     const { dispatch } = this.props;
     const { msg } = this.state;
-    const value = this.refs.pre.innerHTML.trim();
+    const value = this.pre.innerHTML.trim();
     if (!value) return;
     dispatch({
       type: "message/send",
       payload: value
     })
-    this.refs.pre.innerHTML = null
+    this.pre.innerHTML = null
   }
   onEnter(e) {
-    // console.log(this.refs.pre.focus())
+    const { keyCode, ctrlKey } = e;
 
-    // const { keyCode, ctrlKey } = e;
-    // if (13 == keyCode) {
-    //   this.postAll();
-    //   e.preventDefault();
-    // //   return
-    // }
-    // if (13 == keyCode && ctrlKey) {
-    //   e.preventDefault();
-    //   return
-    // }
+    if (13 == keyCode) {
+      if (ctrlKey) return
+      this.postAll();
+
+
+    }
+  }
+  setRanger() {
+    var textbox = this.pre;
+    var sel = window.getSelection();
+    var range = document.createRange();
+    range.selectNodeContents(textbox);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    this.scrollHandle()
   }
   componentDidMount() {
-    hotkeys('ctrl + enter', function (e) {
-      if (e.target.tagName == "PRE") {
-        this.refs.pre.innerHTML += "<br\/><br\/>"
-        var selection = getSelection()
-        var range = selection.getRangeAt(0)
-        console.log(range)
-        range.collapse(true)
-        selection.removeAllRanges()
-        // 插入新的光标对象
-        selection.addRange(range)
-        // this.refs.pre.scrollTop = this.refs.pre.scrollHeight
-        // console.log(this.refs.pre.scrollTop)
-        // console.log(this.refs.pre.scrollHeight)
+    document.querySelector('.chat-content').focus();
+    
+    hotkeys('ctrl + enter', (e) => {
+      if (e.target.tagName == "PRE" && this.pre) {
+        this.pre.innerHTML += "<br\/><br\/>";
+        this.setRanger()
+        return false
       }
-    }.bind(this));
-    hotkeys('enter', function (e) {
-      if (e.target.tagName == "PRE") {
-        e.preventDefault();
-      }
-    }.bind(this));
+    });
   }
   render() {
     return (
       <Footer id="footer">
-
         <pre
-          ref={"pre"}
+          ref={(pre) => this.pre = pre}
           className={`chat-content`}
           placeholder={`请输入你想说的话...`}
           value={this.state.msg}
@@ -95,6 +90,12 @@ class FooterComponent extends React.Component {
         </section>
       </Footer>
     );
+  }
+  scrollHandle() {
+    const scrollDom = ReactDOM.findDOMNode(this.pre);
+    if (scrollDom) {
+      scrollDom.scrollTop = scrollDom.scrollHeight;
+    }
   }
 }
 

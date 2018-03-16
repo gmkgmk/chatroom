@@ -1,29 +1,34 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 import { List, Avatar } from "antd";
 import { connect } from 'dva';
 import "./style.css";
 
-class ListComponent extends Component {
+class ListComponent extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isMe: false,
+      isSelf: false,
       messageList: []
     };
   }
   renderItem(userInfo, item) {
-    const { key } = userInfo;
   
-    const { person: { key: personKey, avatar } } = item;
+    const { pid:key } = userInfo;
+    const { person:{pid: personKey, avatar} } = item;
+    if (!personKey) return 
+    
     const isOwn = key === personKey;
     const ComponentClass = isOwn ? "speckFromOwn" : "speckFromOther";
-
+    const message = item.message.split("<br>");
     return (
       <List.Item className={` ${ComponentClass}`}>
         <List.Item.Meta
           avatar={<Avatar size="large" shape="square" src={avatar} />}
-          description={item.message}
+          description={message.map((i,d)=>{
+            return <div key={d}>{i} <br/>
+            </div>
+          })}
         />
       </List.Item>
     );
@@ -35,8 +40,8 @@ class ListComponent extends Component {
     }
   }
   render() {
-    const { user: person } = this.props;
-    const { isMe, messageList } = this.state;
+    const { userInfo, messageList } = this.props;
+    const { isSelf } = this.state;
     // 生成props
     const ListProps = {
       ref: "talkList",
@@ -47,21 +52,15 @@ class ListComponent extends Component {
       dataSource: messageList
     };
     return (
-      <List {...ListProps} renderItem={this.renderItem.bind(this, person)} />
+      <List {...ListProps} renderItem={this.renderItem.bind(this, userInfo)} />
     );
   }
-  componentDidUpdate() {
-    this.scrollHandle();
-  }
-  componentWillReceiveProps({ message }) {
-    if (!message) return false
-
-    const { messageList } = this.state
-    messageList.push(message)
-    this.setState({ messageList });
+  componentDidMount() {
+    // 让滑轮每次都在最下面
+    this.scrollHandle()
   }
 }
-const mapStateToProps = ({ message: { message }, user }) => {
-  return { message, user } || []
+const mapStateToProps = ({ message: { messageList }, userInfo }) => {
+  return { messageList, userInfo } || {}
 }
 export default connect(mapStateToProps)(ListComponent);

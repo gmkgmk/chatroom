@@ -1,7 +1,7 @@
 const message = {
   namespace: "message",
   state: {
-    message: null
+    messageList: []
   },
   reducers: {
     set(state, { payload }) {
@@ -13,17 +13,19 @@ const message = {
     }
   },
   effects: {
-    *init({ message }, { put }) {
+    *init({ message }, { put, select }) {
+      const { message: { messageList } } = yield select(state => state);
+      messageList.push(message);
       yield put({
         type: "set",
-        payload: { message }
+        payload: { messageList }
       });
     },
     *send({ payload }, { put, select }) {
-      const { socket: { io }, user } = yield select(state => state);
+      const { socket: { io }, userInfo } = yield select(state => state);
       io.emit("message", {
-        message:payload,
-        person: user
+        message: payload,
+        person: userInfo
       });
     }
   }
