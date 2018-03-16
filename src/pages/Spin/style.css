@@ -1,0 +1,31 @@
+.loading-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading-container .svg {
+  width: 50px;
+  height: 50px;
+}
+.loading-container .cir {
+  transform-origin: 50% 50% 0px;
+  animation: react-static-loader 1s infinite;
+  r: 20;
+  stroke: rgba(0, 0, 0, 0.4);
+  stroke-width: 4;
+  cx: 25;
+  cy: 25;
+  stroke-dasharray: 10.4;
+  stroke-linecap: round;
+  fill: transparent;
+}
+@keyframes react-static-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

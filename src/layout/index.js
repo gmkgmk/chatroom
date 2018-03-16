@@ -4,23 +4,26 @@ import { Layout } from "antd";
 
 import Register from '../pages/register';
 import { connect } from 'dva';
-import { Switch, Route,Redirect } from 'dva/router';
+import { Switch, Route, Redirect } from 'dva/router';
+import Spin from '../pages/Spin'
 import "./index.css";
-class LayoutComponent extends React.Component {
-  render() {
+const LayoutComponent=(props)=> {
+    const { global:loading } =props;
     return (
       <section className="layoutBg">
         <Layout className="main">
-          <Switch>
-            <Route exact path='/chat' component={Chat} />
-            <Route path='/register' component={Register} />
-            <Redirect to="/register" /> 
-          </Switch>
+          {loading ? <Spin /> :
+            <Switch>
+              <Route exact path='/chat' component={Chat} />
+              <Route path='/register' component={Register} />
+              <Redirect to="/register" />
+            </Switch>}
         </Layout>
       </section>
     );
-  }
 }
 
-
-export default LayoutComponent;
+const mapStateToProps = ({ loading }) => {
+  return loading || {}
+}
+export default connect(mapStateToProps)(LayoutComponent);

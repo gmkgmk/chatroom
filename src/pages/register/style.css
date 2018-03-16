@@ -22,18 +22,24 @@
 }
 .Register-form-body .form-btn {
   width: 100%;
-  margin-top: 24px;
-}
-.Register-form-body .title {
-  text-align: center;
-  margin: 10px;
-}
-.Register-form-body .ant-input-affix-wrapper {
-  margin-top: 5px;
-  margin-bottom: 15px;
+  margin-top: 12px;
 }
 .Register-form-body .label-link {
   font-size: 12px;
   color: #0366d6;
   text-decoration: none;
+}
+.Register-form-body .title {
+  text-align: center;
+  margin: 10px;
+}
+.Register-form-body .ant-form-item {
+  width: 100%;
+}
+.Register-form-body .ant-form-item div {
+  width: 100%;
+}
+.Register-form-body .ant-input-affix-wrapper {
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
