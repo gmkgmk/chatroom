@@ -12,6 +12,7 @@ const SiderCompnentList = SiderItems => (item, key,dispatch) => {
   );
 };
 function handClick(item,dispatch) {
+  console.log(item)
   dispatch({
     type: "talkInfo/init",
     talkInfo:item

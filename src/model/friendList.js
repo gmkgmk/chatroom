@@ -12,14 +12,28 @@ const friendList = {
         ...payload
       };
       return result;
+    },
+    put({ friendList }, { payload }) {
+      const friendInfo = { ...payload }
+      for (let i in friendList) {
+        if (friendList[i].pid == friendInfo.pid) {
+          friendList[i] = friendInfo
+        }
+      }
+      return { friendList };
     }
-  }, 
+  },
   effects: {
     *init({ friendList }, { put, select }) {
-      console.log(friendList)
       yield put({
         type: "set",
-        payload:  friendList 
+        payload: friendList
+      });
+    },
+    *update({ payload: { friend } }, { put, select }) {
+      yield put({
+        type: "put",
+        payload: friend
       });
     }
   }
