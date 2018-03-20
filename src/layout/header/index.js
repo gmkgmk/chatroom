@@ -14,7 +14,7 @@ class HeaderComponent extends React.Component {
     return (
       <Header id="header">
         <div className="userInfo">
-          欢迎你:{name}
+          {name}
           {avatar ? <Avatar src={avatar} /> : <Avatar icon="user" />}
         </div>
       </Header>
@@ -22,7 +22,7 @@ class HeaderComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({ userInfo }) => {
-  return userInfo || {}
+const mapStateToProps = ({ userInfo,talkInfo }) => {
+  return talkInfo||userInfo || {}
 }
 export default connect(mapStateToProps)(HeaderComponent);

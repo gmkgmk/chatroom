@@ -2,7 +2,7 @@
 const talkInfo = {
   namespace: "talkInfo",
   state: {
-    socketId: null,
+    clientId: null,
   },
   reducers: {
     set(state, { payload }) {

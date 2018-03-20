@@ -9,8 +9,7 @@ const userInfo = {
     key: "",
     avatar: null,
     friendList: [],
-    time: "",
-    socketId:null
+    time: ""
   },
   reducers: {
     set(state, { payload }) {

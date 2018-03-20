@@ -13,6 +13,10 @@ const SiderItem = (item = {}, props = {}) => {
           <h3 className={`nickname`}>
             <span className={`${nameClass}`}>{item.name}</span>
           </h3>
+          <p className="info-box">
+            {nameClass === "nickname_text" ?
+              <span className={`circle ${item.clientId?'online':''}`}></span> : ''}
+          </p>
         </div>
       </section>
     );

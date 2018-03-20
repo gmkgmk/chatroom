@@ -22,16 +22,13 @@ class FooterComponent extends React.Component {
     });
   }
   postAll() {
-    const { dispatch,socketId,name } = this.props;
-    console.log(socketId)
-    console.log(name)
+    const { dispatch,clientId } = this.props;
     const { msg } = this.state;
     const value = this.pre.innerHTML.trim();
-    const id = socketId
-    if (!value || !id) return;
+    if (!value || !clientId) return;
     dispatch({
       type: "message/privateChat",
-      payload: { id, message: value }
+      payload: { clientId, message: value }
     })
     this.pre.innerHTML = null
   }
@@ -103,6 +100,7 @@ class FooterComponent extends React.Component {
 }
 
 const mapStateToProps = ({ talkInfo }) => {
+  console.log(talkInfo)
   return talkInfo || {}
 }
 export default connect(mapStateToProps)(FooterComponent);

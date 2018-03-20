@@ -10,18 +10,18 @@ class SiderList extends Component {
     this.state = {};
   }
   render() {
-    const { friendList,dispatch } = this.props;
-
+    const { friendList:{friendList},dispatch,talkInfo } = this.props;
+    debugger
     let renderList = [];
     if (friendList.length > 0) {
       renderList = friendList.map((item, idx) => {
-        return List(item, idx,dispatch)
+        return List(item, idx,dispatch,talkInfo)
       })
     }
     return <section className={`siderList`}>{renderList}</section>;
   }
 }
-const mapStateToProps = ({ friendList }) => {
-  return friendList || []
+const mapStateToProps = ({ friendList,talkInfo }) => {
+  return {friendList,talkInfo} || []
 }
 export default connect(mapStateToProps)(SiderList);

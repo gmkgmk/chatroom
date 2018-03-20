@@ -34,11 +34,12 @@ const message = {
         payload: messageList
       });
     },
-    *privateChat({ payload:{id,message} }, { put, select }) {
-      const { socket: { io }, userInfo,talkInfo } = yield select(state => state); 
+    *privateChat({ payload:{message} }, { put, select }) {
+      const { socket: { io }, userInfo,talkInfo:{clientId} } = yield select(state => state); 
+
       io.emit("privateChat", {
-        toId:talkInfo.socketId,
-        message: payload,
+        toId:clientId,
+        message,
         person: userInfo
       });
     },

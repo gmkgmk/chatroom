@@ -2,7 +2,7 @@
  * @Author: guo.mk 
  * @Date: 2018-01-14 22:16:01 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-03-20 11:46:23
+ * @Last Modified time: 2018-03-20 22:30:42
  */
 import api from "../api";
 import io from "socket.io-client";
@@ -94,7 +94,10 @@ const socket = {
           });
         });
         socket.on("server:private_chat", data => {
-          console.log("获取到私聊信息", data)
+          dispatch({
+            type: "initMessage",
+            message: data
+          });
         });
         socket.on("server:friendList", data => {
           dispatch({
