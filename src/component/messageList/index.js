@@ -13,11 +13,11 @@ class ListComponent extends PureComponent {
     };
   }
   renderItem(userInfo, item) {
-  
-    const { pid:key } = userInfo;
-    const { person:{pid: personKey, avatar} } = item;
-    if (!personKey) return 
-    
+    console.log("item", item)
+    const { pid: key } = userInfo;
+    const { person: { pid: personKey, avatar } } = item;
+    if (!personKey) return
+
     const isOwn = key === personKey;
     const ComponentClass = isOwn ? "speckFromOwn" : "speckFromOther";
     const message = item.message.split("<br>");
@@ -25,8 +25,8 @@ class ListComponent extends PureComponent {
       <List.Item className={` ${ComponentClass}`}>
         <List.Item.Meta
           avatar={<Avatar size="large" shape="square" src={avatar} />}
-          description={message.map((i,d)=>{
-            return <div key={d}>{i} <br/>
+          description={message.map((i, d) => {
+            return <div key={d}>{i} {d>0?<br />:null}
             </div>
           })}
         />

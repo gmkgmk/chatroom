@@ -2,10 +2,6 @@ import api from "../api";
 import { post } from '../fetch';
 import { routerRedux } from 'dva/router';
 import { select } from 'redux-saga/effects'
-function* aa() {
-  const { user: state } = yield select(state => state);
-  debugger;
-};
 
 const user = {
   namespace: "user",

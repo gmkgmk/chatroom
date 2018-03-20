@@ -2,7 +2,7 @@
  * @Author: guo.mk 
  * @Date: 2018-01-14 22:16:01 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-03-16 10:27:49
+ * @Last Modified time: 2018-03-19 17:26:13
  */
 import api from "../api";
 import io from "socket.io-client";
@@ -35,10 +35,11 @@ const socket = {
         userInfo
       });
     },
-    *initUserList({ userList }, { call, put, select }) {
+    *iniFriendList( friendList , { call, put, select }) {
+      console.log(friendList)
       yield put({
-        type: "userList/init",
-        userList
+        type: "friendList/init",
+        friendList
       });
     },
     *initMessage({ message }, { call, put, select }) {
@@ -50,12 +51,12 @@ const socket = {
     // 初始化信息
     *emptyInit({ }, { put }) {
       yield put({
-        type: "userList/init",
-        userList: {}
+        type: "friendList/init",
+        friendList: []
       });
       yield put({
-        type: "message/init",
-        message: {}
+        type: "message/reset",
+        message: []
       });
       yield put({
         type: "user/signout"
@@ -64,22 +65,14 @@ const socket = {
   },
   subscriptions: {
     init({ dispatch, history }) {
-      history.listen(({ pathname }) => {
+      history.listen(( {pathname} ) => {
         if (pathname === '/register') {
           dispatch({
             type: "emptyInit"
           });
         };
         if (pathname !== '/chat') return;
-        dispatch({
-          type: "initUser"
-        });
-        // const { location: { query = {} } } = history;
-        // const { userInfo = {} } = query
-        // dispatch({
-        //   type: "initUser",
-        //   userInfo
-        // });
+     
         let socket
         try {
           socket = io(api.url);
@@ -88,19 +81,20 @@ const socket = {
         }
 
         if (!socket) return
-        socket.on("res", data => {
-          console.log("data", data)
-        });
-        // socket.once("userInfo", data => {
-        //   dispatch({
-        //     type: "initUser",
-        //     userInfo: data
-        //   });
-        // });
-        socket.on("userList", data => {
+ 
+        socket.on("userInfo", data => {
           dispatch({
-            type: "initUserList",
-            userList: data
+            type: "initUser",
+            userInfo: data
+          });
+        });
+        socket.on("server:private_chat", data => {
+          console.log("获取到私聊信息",data)
+        });
+        socket.on("server:friendList", data => {
+          dispatch({
+            type: "iniFriendList",
+            friendList: data
           });
         });
         socket.on("server:message", data => {

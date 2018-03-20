@@ -22,13 +22,16 @@ class FooterComponent extends React.Component {
     });
   }
   postAll() {
-    const { dispatch } = this.props;
+    const { dispatch,socketId,name } = this.props;
+    console.log(socketId)
+    console.log(name)
     const { msg } = this.state;
     const value = this.pre.innerHTML.trim();
-    if (!value) return;
+    const id = socketId
+    if (!value || !id) return;
     dispatch({
-      type: "message/send",
-      payload: value
+      type: "message/privateChat",
+      payload: { id, message: value }
     })
     this.pre.innerHTML = null
   }
@@ -54,7 +57,7 @@ class FooterComponent extends React.Component {
   }
   componentDidMount() {
     document.querySelector('.chat-content').focus();
-    
+
     hotkeys('ctrl + enter', (e) => {
       if (e.target.tagName == "PRE" && this.pre) {
         this.pre.innerHTML += "<br\/><br\/>";
@@ -99,5 +102,7 @@ class FooterComponent extends React.Component {
   }
 }
 
-
-export default connect()(FooterComponent);
+const mapStateToProps = ({ talkInfo }) => {
+  return talkInfo || {}
+}
+export default connect(mapStateToProps)(FooterComponent);

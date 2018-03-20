@@ -1,9 +1,8 @@
-import api from "../api";
 
-const userList = {
-  namespace: "userList",
+const talkInfo = {
+  namespace: "talkInfo",
   state: {
-    userList: []
+    socketId: null,
   },
   reducers: {
     set(state, { payload }) {
@@ -15,14 +14,13 @@ const userList = {
     }
   },
   effects: {
-    *init({ userList }, { put, select }) {
-
+    *init({ talkInfo }, { put, select }) {
       yield put({
         type: "set",
-        payload: { userList }
+        payload: talkInfo
       });
     }
   }
 };
 
-export default userList;
+export default talkInfo;

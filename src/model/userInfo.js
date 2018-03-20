@@ -9,7 +9,8 @@ const userInfo = {
     key: "",
     avatar: null,
     friendList: [],
-    time: ""
+    time: "",
+    socketId:null
   },
   reducers: {
     set(state, { payload }) {
@@ -22,18 +23,16 @@ const userInfo = {
     }
   },
   effects: {
-    *init({ }, { put }) {
-      const { data: result, code } = yield register();
-      if (200 === code) {
-        yield put({
-          type: "set",
-          payload: result
-        });
-      } else {
+    *init({ userInfo }, { put }) {
+      if (!userInfo||!userInfo.pid) {
         yield put(routerRedux.push({
           pathname: '/register'
         }));
       }
+      yield put({
+        type: "set",
+        payload: userInfo
+      });
     }
   },
   subscriptions: {
@@ -41,7 +40,6 @@ const userInfo = {
 };
 async function register() {
   const result = await get(`${api.url}/api/v1/session`);
-  console.log(result)
   return result
 }
 export default userInfo;

@@ -8,8 +8,8 @@ import SiderHeader from "../../component/SiderHeader";
 import SiderSearch from "../../component/SiderSearch";
 import SiderList from "../../component//SiderList";
 class SiderComponent extends Component {
-  renderList(userList) {
-    const renderUsrs = userList.map((item, idx) => {
+  renderList(friendList) {
+    const renderUsrs = friendList.map((item, idx) => {
       return (
         <article data-id={item.key} className={`chat_item`} key={idx}>
           <div className="avatar">
@@ -26,10 +26,10 @@ class SiderComponent extends Component {
     return renderUsrs;
   }
   render() {
-    const { userList, userInfo } = this.props;
+    const { friendList, userInfo } = this.props;
     return (
       <Sider width={280} id="aside">
-        <SiderHeader/>
+        <SiderHeader />
         <SiderSearch />
         <SiderList />
       </Sider>
@@ -39,7 +39,5 @@ class SiderComponent extends Component {
 }
 
 
-const mapStateToProps = ({ userInfo }) => {
-  return userInfo || {}
-}
-export default connect(mapStateToProps)(SiderComponent);
+
+export default connect()(SiderComponent);

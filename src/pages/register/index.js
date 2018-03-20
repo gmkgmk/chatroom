@@ -78,7 +78,7 @@ class Register extends PureComponent {
       </section>
     );
   }
-  onChangeHandle = (type, e) => {
+  onChangeHandle(type, e) {
     const { dispatch } = this.props;
     const value = { [type]: e.target.value }
     dispatch({
@@ -109,7 +109,7 @@ class Register extends PureComponent {
       } else {
         dispatch({
           type: "util/fail",
-          message:err
+          message: err
         })
       }
     });
