@@ -57,20 +57,29 @@ mysql配置见后台项目.待更新
 * 发布到个人网站
 
 项目结构
-----app 已启用(最开始使用的一个项目,使用koa2搭建后台)
-----common 常用的工具
----static 静态图片
-----src 代码目录
-  ---api
-  ---component组件
-  ---fetch
-  ---layout 布局(主要页面)
-  ---model dva模型
-  ---pages 登陆等页面
-  ---index.js dva初始配置;
-  ---root.js 项目与dva连接
-  ---app.js react的入口
+|----app 已启用(最开始使用的一个项目,使用koa2搭建后台)
+|
+|----common 常用的工具
+|
+|---static 静态图片
+|
+|----src 代码目录
+|
+|  ---api
+|
+|  ---component组件
+|
+|  ---fetch
+|
+|  ---layout 布局(主要页面)
+|
+|  ---model dva模型
+|
+|  ---pages 登陆等页面
+|
+|  ---index.js dva初始配置;
+|
+|  ---root.js 项目与dva连接
+|
+|  ---app.js react的入口
 
-
-![]("./pic-login.png)
-![]("./pic-talk.png)
