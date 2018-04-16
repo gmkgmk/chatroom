@@ -7,14 +7,21 @@ import "./style.css";
 const prefix = "Register";
 
 class Register extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: null,
+      password: null,
+      usernameActive: false,
+      passwordActive: false,
+    }
+  }
   render() {
-    const { username, password } = this.props;
     const { getFieldDecorator } = this.props.form;
+    const { username, password, usernameActive, passwordActive } = this.state;
 
-    const activeElement = document.activeElement.id;
-    const suffixUserName = username && activeElement === "username" ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'username')} /> : null;
-    const suffixPassword = password && activeElement === "password" ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'password')} /> : null;
-
+    const suffixUserName = usernameActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'username')} /> : null;
+    const suffixPassword = passwordActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'password')} /> : null;
 
     return (
       <section className={`${prefix}-container layoutBg`}>
@@ -31,7 +38,8 @@ class Register extends PureComponent {
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   suffix={suffixUserName}
                   onChange={this.onChangeHandle.bind(this, 'username')}
-                  onClick={this.onClickHandle.bind(this)}
+                  onClick={this.onClickHandle.bind(this, 'username')}
+                  onFocus={this.onFocusHandle.bind(this, 'username')}
                   size="large"
                   onPressEnter={this.register.bind(this)}
                   id="username"
@@ -48,8 +56,9 @@ class Register extends PureComponent {
                   suffix={suffixPassword}
                   id="password"
                   type="password"
-                  onClick={this.onClickHandle.bind(this)}
+                  onClick={this.onClickHandle.bind(this, "password")}
                   onChange={this.onChangeHandle.bind(this, 'password')}
+                  onFocus={this.onFocusHandle.bind(this, 'password')}
                   onPressEnter={this.register.bind(this)}
                   size="large"
                   maxLength="10"
@@ -79,45 +88,72 @@ class Register extends PureComponent {
     );
   }
   onChangeHandle(type, e) {
-    const { dispatch } = this.props;
-    const value = { [type]: e.target.value }
-    dispatch({
-      type: "user/changeHandle",
-      value,
-    })
+    const value = e.target.value;
+    this.setState(
+      { [type]: value },
+      () => {
+        this.setActive(type)
+      }
+    )
   }
-  onClickHandle() {
-    // 点击的时候重新刷新视图
-    this.setState({})
+  onClickHandle(type) {
+    this.setActive(type)
+  }
+  onFocusHandle(type) {
+    this.setActive(type)
+  }
+  setActive(type) {
+    const { username, password } = this.state;
+    if (type === 'username' && username) {
+      this.setState({
+        usernameActive: true,
+        passwordActive: false,
+      })
+      return
+    }
+    if (type === 'password' && password) {
+      this.setState({
+        usernameActive: false,
+        passwordActive: true,
+      })
+      return
+    }
+
+    this.setState({
+      usernameActive: false,
+      passwordActive: false,
+    })
   }
   emitEmpty(type) {
-    const { dispatch } = this.props;
+    this.setState(
+      { [type]: null },
+      () => {
+        this.setActive(type)
+      }
+    )
+    this.props.form.resetFields(type)
 
-    dispatch({
-      type: "user/emitEmpty",
-      valueName: type,
-    })
   }
   register(e) {
-    e.preventDefault();
+    const state = this.state
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { dispatch } = this.props;
-        dispatch({
-          type: "user/register"
-        })
-      } else {
-        dispatch({
-          type: "util/fail",
-          message: err
-        })
+        this.props.register(state)
       }
-    });
+    })
   }
 }
 
 const WrappedHorizontalLoginForm = Form.create({})(Register);
-const mapStateToProps = ({ user }) => {
-  return user || {}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    register: (value) => {
+      dispatch({
+        type: "userInfo/register",
+        payload: value
+      })
+    }
+  }
 }
-export default connect(mapStateToProps)(WrappedHorizontalLoginForm);
+export default connect(null, mapDispatchToProps)(WrappedHorizontalLoginForm);

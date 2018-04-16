@@ -1,30 +1,29 @@
 import React from "react";
 import dva from "dva";
 import { message } from "antd";
-import Root from "./root";
+import Root from "./app";
 import createHistory from "history/createBrowserHistory";
-import socket from "./model/socket";
-import userInfo from "./model/userInfo";
-import talkInfo from "./model/talkInfo";
-import friendList from "./model/friendList";
-import messageModel from "./model/message";
-import util from "./model/util";
-import user from "./model/user";
 import createLoading from 'dva-loading';
 
+import socketModel from "./models/socket";
+import userInfoModel from "./models/userInfo";
+import chatModel from "./models/chat";
+import friendsModel from "./models/friends";
+import messageModel from "./models/messages";
+import utilModel from "./models/util";
+ 
 const app = dva({
   history: createHistory(),
   onError(error) {
     message.error(error.message);
-  }
+  } 
 });
 app.use(createLoading());
-app.model(user);
-app.model(util);
-app.model(userInfo);
-app.model(friendList);
+app.model(utilModel);
+app.model(userInfoModel);
+app.model(friendsModel);
 app.model(messageModel);
-app.model(socket);
-app.model(talkInfo);
+app.model(socketModel);
+app.model(chatModel);
 app.router((app) => <Root {...app} />);
 app.start("#app");

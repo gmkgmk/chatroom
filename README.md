@@ -3,9 +3,9 @@
 使用:
 
 clone项目
-[https://github.com/gmkgmk/onlineTalk]
+[https://github.com/gmkgmk/onlineTalk](https://github.com/gmkgmk/onlineTalk)
 
-# 打开方式:
+# 打开方式
 
 执行npm install;
 
@@ -20,14 +20,14 @@ npm run dev 开启项目
 
 ## 后台地址:[egg-socket.io-tail-online](https://github.com/gmkgmk/egg-socket.io-tail-online)
 
-## 前端使用技术:
+## 前端使用技术
 
 * react 16.0+
 * antd 3.0+
 * dva 2.0+
 * parcel
 
-## 后台使用技术:
+## 后台使用技术
 
 * egg 2.0
 * egg-mysql
@@ -36,7 +36,7 @@ npm run dev 开启项目
 
 mysql配置见后台项目.待更新
 
-## 计划功能:
+## 计划功能
 
 * 在线聊天 √
 * 好友列表 √
@@ -82,4 +82,3 @@ mysql配置见后台项目.待更新
 |  ---root.js 项目与dva连接
 
 |  ---app.js react的入口
-

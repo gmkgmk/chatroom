@@ -1,0 +1,13 @@
+.layout {
+  overflow: hidden;
+}
+.layoutBg {
+  background: url("../assets/layout_bg.jpg") no-repeat 50%;
+}
+.layoutBg .main {
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 800px;
+  position: relative;
+  flex-direction: row;
+}

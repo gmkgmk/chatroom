@@ -2,18 +2,20 @@
  * @Author: guo.mk 
  * @Date: 2017-12-19 17:22:37 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-01-16 19:07:40
+ * @Last Modified time: 2018-04-16 21:49:04
  */
 import React from "react";
-import MainLayou from "./layout";
+import Routes from "./routes";
+import { routerRedux } from 'dva/router';
+const { ConnectedRouter } = routerRedux;
 
-class SocketComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return <MainLayou />;
-  }
-}
 
-export default SocketComponent;
+const App = ({ history, app }) => {
+  return (
+    <ConnectedRouter history={history}>
+      <Routes />
+    </ConnectedRouter>
+  );
+};
+
+export default App;
