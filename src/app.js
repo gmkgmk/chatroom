@@ -1,24 +1,10 @@
-// /*
-//  * @Author: guo.mk 
-//  * @Date: 2017-12-19 17:22:37 
-//  * @Last Modified by: guo.mk
-//  * @Last Modified time: 2018-04-17 11:25:45
-//  */
-// import React from "react";
-// import Routes from "./router";
-// import { routerRedux } from 'dva/router';
-// const { ConnectedRouter } = routerRedux;
+/*
+ * @Author: guo.mk 
+ * @Date: 2017-12-19 17:22:37 
+ * @Last Modified by: guo.mk
+ * @Last Modified time: 2018-04-17 17:17:19
+ */
 
-// // create history
-// const history = window.history;
-
-// const App = () => {
-//   return (
-
-//   );
-// };
-
-// export default App;
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 

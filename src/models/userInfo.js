@@ -1,6 +1,5 @@
-import api from "../api";
-import { get, post } from '../utils/request'
 import { routerRedux } from 'dva/router';
+import { register } from '../services';
 
 const userInfo = {
   namespace: "userInfo",
@@ -13,7 +12,6 @@ const userInfo = {
   },
   reducers: {
     set(state, { payload }) {
-
       let result = {
         ...state,
         ...payload
@@ -34,36 +32,34 @@ const userInfo = {
       });
     },
     *register({ payload: value }, { put, select, call }) {
-      const { loading } = yield select(state => state);
       const { username, password } = value;
       const result = yield call(register, { username, password });
-      if (result.code == 200) {
-        yield put({
-          type: "util/success",
-          message: "登陆成功"
-        });
-
-        yield new Promise(resolve => {
-          setTimeout(resolve, 1000)
-        })
-        yield put(routerRedux.push({
-          pathname: '/chat'
-        }));
-      } else {
-        yield put({
-          type: "util/fail",
-          message: "登录失败:" + result.data.message
-        });
-      }
+      yield checkRegister(result, { put, select, call })
     },
   },
   subscriptions: {
   }
 };
 
-async function register(value) {
-  console.log(value)
-  const result = await post(`${api.url}/api/v1/session`, value)
-  return result
+
+function* checkRegister(result, { put, select, call }) {
+  if (result.code == 200) {
+    yield put({
+      type: "util/success",
+      message: "登陆成功"
+    });
+
+    yield new Promise(resolve => {
+      setTimeout(resolve, 1000)
+    })
+    yield put(routerRedux.push({
+      pathname: '/chat'
+    }));
+  } else {
+    yield put({
+      type: "util/fail",
+      message: "登录失败:" + result.data.message
+    });
+  }
 }
 export default userInfo;

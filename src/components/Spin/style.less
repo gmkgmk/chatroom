@@ -1,23 +1,33 @@
 .loading-container{
   width: 100%;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
   display: block;
   width: 100%;
   text-align: center;
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .svg {
-    width: 50px;
-    height: 50px
+    @clr:100px;
+    width: @clr;
+    height:@clr;
   }
-
+.loading-message{
+  position: absolute
+}
   .cir {
     transform-origin: 50% 50% 0px;
     animation: react-static-loader 1s infinite;
-    r: 20;
+    r:40;
     stroke: rgba(0, 0, 0, 0.4);
     stroke-width: 4;
-    cx: 25;
-    cy: 25;
+    cx: 50;
+    cy: 50;
     stroke-dasharray: 10.4;
     stroke-linecap: round;
     fill: transparent;

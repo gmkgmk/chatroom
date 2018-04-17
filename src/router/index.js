@@ -4,21 +4,21 @@ import { connect } from 'dva';
 import { Switch, Route, Redirect, routerRedux } from 'dva/router';
 import "./index.css";
 import Chat from '../pages/chat';
-import Spin from '../pages/Spin'
+import Spin from '../components/Spin'
 import Register from '../pages/register';
+import HOCLoading from '../HOC/loading';
 
 const { ConnectedRouter } = routerRedux;
 
-const routes = ({ global: loading }) => {
+const routes = () => {
   return (
     <main className="layoutBg">
       <Layout className="main">
-        {loading ? <Spin /> :
-          <Switch>
-            <Route exact path='/chat' component={Chat} />
-            <Route path='/register' component={Register} />
-            <Redirect to="/register" />
-          </Switch>}
+        <Switch>
+          <Route exact path='/chat' component={Chat} />
+          <Route path='/register' component={Register} />
+          <Redirect to="/register" />
+        </Switch>
       </Layout>
     </main>
   );
@@ -28,8 +28,10 @@ const routes = ({ global: loading }) => {
 const mapStateToProps = ({ loading }) => {
   return loading || {}
 }
-
-const ConnectWithRoute = connect(mapStateToProps)(routes)
+const LoadingWithRoutes = HOCLoading(routes)
+const ConnectWithRoute = connect(mapStateToProps)(({ global: isLoading }) => {
+  return <LoadingWithRoutes isLoading={isLoading} />
+})
 export default () => {
   return (
     <ConnectedRouter history={window._history}>

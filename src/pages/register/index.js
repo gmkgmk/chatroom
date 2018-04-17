@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 import { connect } from 'dva';
-import { Button, Input, Icon, Checkbox, Form } from 'antd';
+import { Button, Icon, Checkbox, Form } from 'antd';
+import RegisterInput from './../../components/baseInput';
+import HOCLoading from '../../HOC/loading';
 const FormItem = Form.Item;
 import "./style.css";
 const prefix = "Register";
-
 class Register extends PureComponent {
   constructor(props) {
     super(props)
@@ -19,31 +20,26 @@ class Register extends PureComponent {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { username, password, usernameActive, passwordActive } = this.state;
-
     const suffixUserName = usernameActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'username')} /> : null;
     const suffixPassword = passwordActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'password')} /> : null;
-
     return (
       <section className={`${prefix}-container layoutBg`}>
-        <article className={`${prefix}-form-body `}>
+        <article className={`${prefix}-form-body`} >
           <h1 className="title">登录</h1>
           <Form layout="inline">
             <FormItem>
               {getFieldDecorator('username', {
                 rules: [{ required: true, message: '请输入您的用户名或者邮箱' }],
               })(
-                <Input
+                <RegisterInput
                   placeholder="admin"
-                  autoComplete="true"
                   maxLength="20"
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   suffix={suffixUserName}
                   onChange={this.onChangeHandle.bind(this, 'username')}
                   onClick={this.onClickHandle.bind(this, 'username')}
                   onFocus={this.onFocusHandle.bind(this, 'username')}
-                  size="large"
                   onPressEnter={this.register.bind(this)}
-                  id="username"
                 />
               )}
             </FormItem>
@@ -51,19 +47,15 @@ class Register extends PureComponent {
               {getFieldDecorator('password', {
                 rules: [{ required: true, message: '请确认您的密码,最少输入6位!', min: 6, max: 10, }],
               })(
-                <Input
+                <RegisterInput
                   placeholder="123456"
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   suffix={suffixPassword}
-                  id="password"
                   type="password"
-                  autoComplete="true"
                   onClick={this.onClickHandle.bind(this, "password")}
                   onChange={this.onChangeHandle.bind(this, 'password')}
                   onFocus={this.onFocusHandle.bind(this, 'password')}
                   onPressEnter={this.register.bind(this)}
-                  size="large"
-                  maxLength="10"
                 />
               )}
             </FormItem>
@@ -134,9 +126,9 @@ class Register extends PureComponent {
       }
     )
     this.props.form.resetFields(type)
-
   }
   register(e) {
+    e.preventDefault();
     const state = this.state
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -145,6 +137,7 @@ class Register extends PureComponent {
     })
   }
 }
+
 
 const WrappedHorizontalLoginForm = Form.create({})(Register);
 
@@ -158,4 +151,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
   }
 }
-export default connect(null, mapDispatchToProps)(WrappedHorizontalLoginForm);
+const mapStateToProps = ({ loading }) => {
+  const isLoading = loading.global
+  return { isLoading }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedHorizontalLoginForm);
