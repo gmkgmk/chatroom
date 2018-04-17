@@ -34,6 +34,7 @@ class Register extends PureComponent {
               })(
                 <Input
                   placeholder="admin"
+                  autoComplete="true"
                   maxLength="20"
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   suffix={suffixUserName}
@@ -56,6 +57,7 @@ class Register extends PureComponent {
                   suffix={suffixPassword}
                   id="password"
                   type="password"
+                  autoComplete="true"
                   onClick={this.onClickHandle.bind(this, "password")}
                   onChange={this.onChangeHandle.bind(this, 'password')}
                   onFocus={this.onFocusHandle.bind(this, 'password')}

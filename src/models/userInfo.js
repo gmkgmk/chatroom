@@ -33,11 +33,10 @@ const userInfo = {
         payload: userInfo
       });
     },
-    *register({ payload:value }, { put, select, call }) {
+    *register({ payload: value }, { put, select, call }) {
       const { loading } = yield select(state => state);
-      console.log(value)
-      const result = yield call(register, value);
-      console.log(result)
+      const { username, password } = value;
+      const result = yield call(register, { username, password });
       if (result.code == 200) {
         yield put({
           type: "util/success",
