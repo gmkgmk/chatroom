@@ -1,0 +1,20 @@
+{
+  "entry": "src/index.js",
+   "extraBabelPlugins": [
+    "transform-decorators-legacy",
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }]
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "proxy": {
+    "/api": {
+      "target": "http://127.0.0.1:7001/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
+  },
+  "disableCSSModules":true,
+  "disableCSSSourceMap":true
+}

@@ -1,14 +1,14 @@
-#footer {
+.chatFoot {
   background-color: #eee;
   height: 180px;
   margin-right: 19px;
   border-top: 1px solid #d6d6d6;
 }
-#footer .ant-input {
+.chatFoot .ant-input {
   background: #eee;
   border: 0;
 }
-#footer .btn_send {
+.chatFoot .btn_send {
   background-color: #f8f8f8;
   color: #222;
   padding-left: 30px;
@@ -18,19 +18,19 @@
   padding: 3px 20px;
   font-size: 14px;
 }
-#footer .btn_send:hover {
+.chatFoot .btn_send:hover {
   background-color: #f1f1f1;
 }
-#footer .desc {
+.chatFoot .desc {
   color: #888;
   font-size: 12px;
   margin-left: 10px;
   margin-right: 7px;
 }
-#footer .action {
+.chatFoot .action {
   text-align: right;
 }
-#footer .chat-content {
+.chatFoot .chat-content {
   height: 6em;
   overflow-y: auto;
   overflow-x: hidden;

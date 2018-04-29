@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Layout, Input, Button } from "antd";
-const { TextArea } = Input;
-const { Footer } = Layout;
+import { Layout, Button } from "antd";
 import { connect } from 'dva';
 import hotkeys from 'hotkeys-js';
 import "./style.css";
+const { Footer } = Layout;
 
 class FooterComponent extends React.Component {
   constructor(props) {
@@ -22,9 +21,8 @@ class FooterComponent extends React.Component {
   }
   postAll() {
     const { dispatch, clientId } = this.props;
-    const { msg } = this.state;
     const value = this.pre.innerHTML.trim();
-    if (!value ) return;
+    if (!value) return;
     dispatch({
       type: "message/privateChat",
       payload: { clientId, message: value }
@@ -38,7 +36,7 @@ class FooterComponent extends React.Component {
   onEnter(e) {
     const { keyCode, ctrlKey } = e;
 
-    if (13 == keyCode) {
+    if (13 === keyCode) {
       if (ctrlKey) return
       this.postAll();
 
@@ -59,7 +57,7 @@ class FooterComponent extends React.Component {
     document.querySelector('.chat-content').focus();
 
     hotkeys('ctrl + enter', (e) => {
-      if (e.target.tagName == "PRE" && this.pre) {
+      if (e.target.tagName === "PRE" && this.pre) {
         this.pre.innerHTML += "<br\/><br\/>";
         this.setRanger()
         return false
@@ -68,7 +66,7 @@ class FooterComponent extends React.Component {
   }
   render() {
     return (
-      <Footer id="footer">
+      <Footer className="chatFoot">
         <pre
           ref={(pre) => this.pre = pre}
           className={`chat-content`}

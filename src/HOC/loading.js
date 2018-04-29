@@ -1,13 +1,12 @@
 import React from 'react';
 import Spin from '../components/Spin';
 
-const WithLoading = Component => ({ isLoading, ...props }) => {
-  console.log(isLoading)
+const WithLoading = Component => ({ isLoading = false, ...props }) => {
   return (
-    <section>
+    <>
       <Component {...props} />
-      {isLoading ? <Spin /> :null}
-    </section>
+      {isLoading ? <Spin /> : null}
+    </>
   )
 }
 

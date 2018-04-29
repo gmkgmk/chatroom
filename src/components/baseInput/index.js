@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Input } from 'antd';
 
 class base_input extends Component {
-  constructor(prop) {
-    super(prop)
-  }
   render() {
     const inputProp = {
       autoComplete: "true",

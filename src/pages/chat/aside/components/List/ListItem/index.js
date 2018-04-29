@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import SiderItems from "./../../ListItem";
-import { connect } from 'dva';
+// import { connect } from 'dva';
 import "./style.css";
 
 
 const SiderCompnentList = SiderItems => (item, key,dispatch,chat) => {
   return (
-    <article data-id={item.key} key={key} className={`chat_item ${chat.pid==item.pid?'active':''}`} onClick={handClick.bind(this,item,dispatch)}>
+    <article data-id={item.key} key={key} className={`chat_item ${chat.pid===item.pid?'active':''}`} onClick={handClick.bind(this,item,dispatch)}>
       {SiderItems(item, { nameClass: `nickname_text`,clientId:chat.clientId })}
     </article>
   );

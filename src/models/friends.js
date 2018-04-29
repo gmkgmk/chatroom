@@ -1,4 +1,4 @@
-import api from "../api";
+// import api from "../api";
 
 const friends = {
   namespace: "friends",
@@ -16,7 +16,7 @@ const friends = {
     put({ friends }, { payload }) {
       const friendInfo = { ...payload }
       for (let i in friends) {
-        if (friends[i].pid == friendInfo.pid) {
+        if (friends[i].pid === friendInfo.pid) {
           friends[i] = friendInfo
         }
       }
@@ -24,7 +24,7 @@ const friends = {
     }
   },
   effects: {
-    *init({ friends }, { put, select }) {
+    *init({ payload: friends }, { put, select }) {
       yield put({
         type: "set",
         payload: friends
@@ -36,6 +36,25 @@ const friends = {
         payload: friend
       });
     }
+  },
+  subscriptions: {
+    socket({ dispatch }) {
+      // const socket = window._socket;
+      // socket.on("server:friends", data => {
+      //   dispatch({
+      //     type: "init",
+      //     payload: data
+      //   });
+      // });
+      // socket.on("server:updateFriend", data => {
+      //   dispatch({
+      //     type: "update",
+      //     friend: data
+      //   });
+      // })
+    },
+
+
   }
 };
 

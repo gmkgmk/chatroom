@@ -1,25 +1,22 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import createHistory from "history/createBrowserHistory";
+import Router from './router';
+import { WebsocketApp, app } from './app.js';
+
+let basename = process.env.NODE_ENV === "production" ? "room/" : "/"
 
 window._history = createHistory({
-  basename: "/",
+  basename,
 });
-
-import Router from './router';
 async function render() {
-  const App = (await import('./App.js')).default;
   ReactDOM.render(React.createElement(
-    App,
+    WebsocketApp,
     null,
     React.createElement(Router)
   ), document.getElementById('app'));
 }
-
 render();
 
-if (module.hot) {
-  module.hot.accept('./router', () => {
-    render();
-  });
-}
+
+export default app._store;

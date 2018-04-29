@@ -41,7 +41,7 @@ class ListComponent extends PureComponent {
   }
   render() {
     const { userInfo, messageList } = this.props;
-    const { isSelf } = this.state;
+    // const { isSelf } = this.state;
     // 生成props
     const ListProps = {
       ref: "talkList",

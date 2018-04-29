@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./style.css";
 
 const SiderItem = (item = {}, props = {}) => {
@@ -7,7 +7,7 @@ const SiderItem = (item = {}, props = {}) => {
     return (
       <section>
         <div className="avatar">
-          <img src={item.avatar} className="img" />
+          <img src={item.avatar} className="img"  alt="图片"/>
         </div>
         <div className={`info`}>
           <h3 className={`nickname`}>

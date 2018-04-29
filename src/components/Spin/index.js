@@ -7,7 +7,7 @@ const Spin = () => {
       <svg className="svg">
         <circle className="cir" />
       </svg>
-      <span class="loading-message">
+      <span className="loading-message">
         加载中...
      </span>
     </section>

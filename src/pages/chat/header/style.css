@@ -1,4 +1,4 @@
-#header {
+.chatHeader {
   display: flex;
   height: 50px;
   border-bottom: 1px solid #d6d6d6;
@@ -6,13 +6,13 @@
   justify-content: center;
   text-align: center;
 }
-#header .ant-layout-header {
+.chatHeader .ant-layout-header {
   line-height: 10vh;
 }
-#header .userInfo {
+.chatHeader .userInfo {
   align-items: center;
   display: flex;
 }
-#header .userInfo .ant-avatar {
+.chatHeader .userInfo .ant-avatar {
   margin-left: 20px;
 }

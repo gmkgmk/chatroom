@@ -2,13 +2,12 @@
  * @Author: guo.mk 
  * @Date: 2018-01-14 22:16:01 
  * @Last Modified by: guo.mk
- * @Last Modified time: 2018-04-16 19:28:23
+ * @Last Modified time: 2018-04-28 16:41:23
  */
-import api from "../api";
-import io from "socket.io-client";
-
+import { connect } from '../services/socket';
+const namespace = "chat/socket";
 const socket = {
-  namespace: "socket",
+  namespace,
   state: {
     io: null
   },
@@ -53,78 +52,56 @@ const socket = {
         message
       });
     },
-    // 初始化信息
-    *emptyInit({ }, { put }) {
-      yield put({
-        type: "friends/init",
-        friends: []
-      });
-      yield put({
-        type: "message/reset",
-        message: []
-      });
-      yield put({
-        type: "user/signout"
-      });
-    }
   },
   subscriptions: {
-    init({ dispatch, history }) {
+    socket({ history }) {
       history.listen(({ pathname }) => {
-        if (pathname === '/register') {
-          dispatch({
-            type: "emptyInit"
-          });
-        };
-        if (pathname !== '/chat') return;
-
-        let socket
-        try {
-          socket = io(api.url);
-        } catch (error) {
-          console.log(error)
+        if (pathname !== '/room/chat') {
+          connect()
         }
-
-        if (!socket) return
-
-        socket.on("userInfo", data => {
-          dispatch({
-            type: "initUser",
-            userInfo: data
-          });
-        });
-        socket.on("server:private_chat", data => {
-          dispatch({
-            type: "initMessage",
-            message: data
-          });
-        });
-        socket.on("server:friends", data => {
-          dispatch({
-            type: "inifriends",
-            friends: data
-          });
-        });
-        socket.on("server:updateFriend", data => {
-          dispatch({
-            type: "updatefriends",
-            friend: data
-          });
-        });
-        socket.on("server:message", data => {
-          dispatch({
-            type: "initMessage",
-            message: data
-          });
-        });
-        socket.on('connect', () => {
-          dispatch({
-            type: "init",
-            socket
-          });
-        });
-      });
+      })
     }
+    // init({ dispatch, history }) {
+    //   history.listen(({ pathname }) => {
+    //     if (pathname === '/room/register') { };
+    //     if (pathname !== '/room/chat') return;
+    //   })
+    //   //   let socket
+    //   //   try {
+    //   //     socket = io(api.url);
+    //   //   } catch (error) {
+    //   //     console.log(error)
+    //   //   }
+
+    //   //   if (!socket) return
+
+    //   //   socket.on("server:private_chat", data => {
+    //   //     dispatch({
+    //   //       type: "initMessage",
+    //   //       message: data
+    //   //     });
+    //   //   });
+
+
+    //   //   socket.on("server:updateFriend", data => {
+    //   //     dispatch({
+    //   //       type: "updatefriends",
+    //   //       friend: data
+    //   //     });
+    //   //   });
+    //   //   socket.on("server:message", data => {
+    //   //     dispatch({
+    //   //       type: "initMessage",
+    //   //       message: data
+    //   //     });
+    //   //   });
+    //   //   socket.on('connect', () => {
+    //   //     dispatch({
+    //   //       type: "init",
+    //   //       socket
+    //   //     });
+    //   //   });
+    // }
   }
 };
 

@@ -1,11 +1,9 @@
 import React, { PureComponent } from "react";
-import ReactDOM from "react-dom";
 import { connect } from 'dva';
 import { Button, Icon, Checkbox, Form } from 'antd';
-import RegisterInput from './../../components/baseInput';
-import HOCLoading from '../../HOC/loading';
-const FormItem = Form.Item;
+import RegisterInput from './../../components/BaseInput';
 import "./style.css";
+const FormItem = Form.Item;
 const prefix = "Register";
 class Register extends PureComponent {
   constructor(props) {
@@ -19,7 +17,7 @@ class Register extends PureComponent {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { username, password, usernameActive, passwordActive } = this.state;
+    const {  usernameActive, passwordActive } = this.state;
     const suffixUserName = usernameActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'username')} /> : null;
     const suffixPassword = passwordActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'password')} /> : null;
     return (
@@ -145,7 +143,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     register: (value) => {
       dispatch({
-        type: "userInfo/register",
+        type: "login/register",
         payload: value
       })
     }

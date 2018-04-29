@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import "./style.css";
-// import SiderItems from "../SiderItems";
-// import { connect } from 'dva';
+import SiderItems from "./../ListItem";
 
-// const SiderHeader = SiderItems => item => {
-//   return <header className={`asideHead `}>{SiderItems(item, { nameClass: `display_name` })}</header>;
-// };
+import { connect } from 'dva';
 
-// const mapStateToProps = ({ userInfo }) => {
-//   return userInfo || {}
-// }
+const SiderHeader = SiderItems => item => {
+  return <header className={`asideHead `}>{SiderItems(item, { nameClass: `display_name` })}</header>;
+};
 
-// const WithSiderHeader = SiderHeader(SiderItems);
-// export default connect(mapStateToProps)(WithSiderHeader);
-
-export const Header=()=>{
-  return <div>2</div>
+const mapStateToProps = ({ userInfo }) => {
+  return userInfo || {}
 }
+
+const WithSiderHeader = SiderHeader(SiderItems);
+export default connect(mapStateToProps)(WithSiderHeader);
+// export default () => {
+//   return (<div>2</div>)
+// }

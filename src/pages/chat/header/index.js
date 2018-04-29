@@ -1,12 +1,12 @@
 import React from "react";
 import { Layout, Avatar } from "antd";
 import { connect } from 'dva';
-const { Header } = Layout;
 import "./style.css";
+const { Header } = Layout;
 
 const HeaderComponent = ({ name, avatar }) => {
   return (
-    <Header id="header">
+    <Header className="chatHeader">
       <div className="userInfo">
         {name}
         {avatar ? <Avatar src={avatar} /> : <Avatar icon="user" />}
