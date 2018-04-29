@@ -1,15 +1,16 @@
-import React from "react";
 import { Layout } from "antd";
-import { connect } from 'dva';
 import { Switch, Route, Redirect, routerRedux } from 'dva/router';
 import "./index.css";
-
-import HOCLoading from '../HOC/loading';
 import { getRouterData } from '../common/router';
-import {app} from '../app'
-
+import dynamic from 'dva/dynamic';
+import Spin from '../components/Spin'
 const { ConnectedRouter } = routerRedux;
-const routes = () => {
+
+dynamic.setDefaultLoadingComponent(() => {
+  return  <Spin/>
+});
+
+const RouteConfig = ({ app }) => {
   const routerData = getRouterData(app);
   const ChatPage = routerData['/chat'].component;
   const RegisterPage = routerData['/register'].component;
@@ -26,18 +27,10 @@ const routes = () => {
   );
 }
 
-
-const mapStateToProps = ({ loading }) => {
-  return loading || {}
-}
-const LoadingWithRoutes = HOCLoading(routes)
-const ConnectWithRoute = connect(mapStateToProps)(({ global: isLoading }) => {
-  return <LoadingWithRoutes isLoading={isLoading} />
-})
-export default (props) => {
+export default ({ history, app }) => {
   return (
-    <ConnectedRouter history={window._history}>
-      <ConnectWithRoute />
+    <ConnectedRouter history={history}>
+      <RouteConfig app={app} />
     </ConnectedRouter>
   )
 }

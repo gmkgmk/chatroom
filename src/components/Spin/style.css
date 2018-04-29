@@ -1,5 +1,6 @@
 .loading-container {
   height: 100vh;
+  background: url("../../assets/layout_bg.jpg") no-repeat 50%;
   position: fixed;
   top: 0;
   left: 0;

@@ -1,22 +1,9 @@
-import React from "react";
-import ReactDOM from 'react-dom';
-import createHistory from "history/createBrowserHistory";
-import Router from './router';
-import { WebsocketApp, app } from './app.js';
+// 动态生成入口
+import app from './app';
 
-let basename = process.env.NODE_ENV === "production" ? "room/" : "/"
+let element = document.createElement('div');
+element.className = 'root';
 
-window._history = createHistory({
-  basename,
-});
-async function render() {
-  ReactDOM.render(React.createElement(
-    WebsocketApp,
-    null,
-    React.createElement(Router)
-  ), document.getElementById('app'));
-}
-render();
+document.body.appendChild(element);
 
-
-export default app._store;
+app.start(element);
