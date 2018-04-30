@@ -1,13 +1,13 @@
 import { Layout } from "antd";
 import { Switch, Route, Redirect, routerRedux } from 'dva/router';
 import "./index.css";
-import { getRouterData } from '../common/router';
+import { getRouterData } from './routerData';
 import dynamic from 'dva/dynamic';
 import Spin from '../components/Spin'
 const { ConnectedRouter } = routerRedux;
 
 dynamic.setDefaultLoadingComponent(() => {
-  return  <Spin/>
+  return <Spin />
 });
 
 const RouteConfig = ({ app }) => {

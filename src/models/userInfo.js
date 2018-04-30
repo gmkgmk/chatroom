@@ -1,13 +1,22 @@
-// import { listen } from '../services/socket';
+import { listen } from '../services/socket';
 
 const userInfo = {
   namespace: "userInfo",
   state: {
     name: "暂未登陆",
     key: "",
-    avatar: null,
-    friends: [],
-    time: ""
+    avatar: "",
+    time: "",
+    pid: "",
+    numberId: null,
+    username: "",
+    email: "",
+    phone: "",
+    website: "",
+    password: "",
+    updateTime: "",
+    regTime: "",
+    friendsList: "",
   },
   reducers: {
     set(state, { payload }) {
@@ -19,24 +28,22 @@ const userInfo = {
     }
   },
   effects: {
-    *init({ payload }, { put }) {
+    *init({ payload = {} }, { put }) {
+      const { data: { payload: { userInfo } } } = payload;
       yield put({
         type: "set",
-        payload,
+        payload: userInfo
       });
     },
   },
   subscriptions: {
     socket({ dispatch }) {
-      // console.log(listen)
-      // listen
-      // const socket = window._socket;
-      // socket.on("userInfo", data => {
-      //   dispatch({
-      //     type: "init",
-      //     payload: data
-      //   });
-      // })
+      listen("userInfo", data => {
+        dispatch({
+          type: "init",
+          payload: data
+        });
+      })
     }
   }
 };

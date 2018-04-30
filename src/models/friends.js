@@ -1,4 +1,4 @@
-// import api from "../api";
+import { listen } from '../services/socket';
 
 const friends = {
   namespace: "friends",
@@ -39,6 +39,12 @@ const friends = {
   },
   subscriptions: {
     socket({ dispatch }) {
+      listen("server:friends", data => {
+        dispatch({
+          type: "init",
+          payload: data
+        });
+      });
       // const socket = window._socket;
       // socket.on("server:friends", data => {
       //   dispatch({
