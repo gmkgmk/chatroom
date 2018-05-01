@@ -8,3 +8,8 @@ export async function register(params) {
     body: params
   });
 }
+export async function validateLogin(params) {
+  return request(`${url}/api/v1/session`, {
+    method: 'get'
+  });
+}

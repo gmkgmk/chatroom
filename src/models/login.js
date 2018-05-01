@@ -1,4 +1,4 @@
-import { queryAccountLogin } from '../services/login'
+import { queryAccountLogin, validateAccountLogin } from '../services/login'
 import { routerRedux } from 'dva/router';
 import checkStatus from '../utils/checkStatus';
 
@@ -27,6 +27,14 @@ export default {
         yield put(routerRedux.push('/chat'));
       }
     },
+    *logout({ payload, callback }, { put, select, call }) { },
+    *validateSession(state, { call, put }) {
+      const { code } = yield call(validateAccountLogin);
+
+      if (code === 200) {
+        yield put(routerRedux.push('/chat'));
+      }
+    }
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
@@ -35,5 +43,15 @@ export default {
         ...payload
       };
     },
+
   },
+  subscriptions: {
+    validateSession({ history, dispatch }) {
+      if (history.location.pathname === '/register') {
+        dispatch({
+          type: 'validateSession',
+        })
+      }
+    }
+  }
 }

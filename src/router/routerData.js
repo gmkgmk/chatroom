@@ -21,7 +21,7 @@ export const getRouterData = (app) => {
       component: dynamicWrapper(app, ['login'], () => import('../pages/register')),
     },
     '/chat': {
-      component: dynamicWrapper(app, ['userInfo', 'friends','chat','messages'], () => import('../pages/chat')),
+      component: dynamicWrapper(app, ['userInfo', 'chat', 'messages'], () => import('../pages/chat')),
     },
   };
   return routerConfig

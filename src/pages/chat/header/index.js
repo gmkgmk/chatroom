@@ -16,6 +16,6 @@ const HeaderComponent = ({ name, avatar }) => {
 }
 
 const mapStateToProps = ({ userInfo, chat }) => {
-  return chat || userInfo || {}
+  return chat || {}
 }
 export default connect(mapStateToProps)(HeaderComponent);

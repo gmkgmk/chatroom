@@ -2,7 +2,8 @@
 const chat = {
   namespace: "chat",
   state: {
-    clientId: null,
+    name: "",
+    avatar: "",
   },
   reducers: {
     set(state, { payload }) {
@@ -14,10 +15,10 @@ const chat = {
     }
   },
   effects: {
-    *init({ chat }, { put, select }) {
+    *init(payload, { put, select }) {
       yield put({
         type: "set",
-        payload: chat
+        payload,
       });
     }
   }

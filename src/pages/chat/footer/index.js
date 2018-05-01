@@ -20,12 +20,12 @@ class FooterComponent extends React.Component {
     });
   }
   postAll() {
-    const { dispatch, clientId } = this.props;
+    const { dispatch } = this.props;
     const value = this.pre.innerHTML.trim();
     if (!value) return;
     dispatch({
-      type: "message/privateChat",
-      payload: { clientId, message: value }
+      type: "message/privateChannel",
+      payload: { message: value }
     })
     dispatch({
       type: "message/msgBySelf",
@@ -39,8 +39,6 @@ class FooterComponent extends React.Component {
     if (13 === keyCode) {
       if (ctrlKey) return
       this.postAll();
-
-
     }
   }
   setRanger() {

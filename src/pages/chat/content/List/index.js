@@ -12,17 +12,16 @@ class ListComponent extends PureComponent {
       messageList: []
     };
   }
-  renderItem(userInfo, item) {
-    debugger
-    const { pid: key } = userInfo;
-    const { person: { pid: personKey, avatar } } = item;
-    if (!personKey) return
+  renderItem(messageUser, item) {
+    const { pid: key } = messageUser;
 
-    const isOwn = key === personKey;
-    const ComponentClass = isOwn ? "speckFromOwn" : "speckFromOther";
-    const message = item.message.split("<br>");
+    const messageByOther = messageUser.pid = item.userPid;
+    const ComponentClass = messageByOther ? "speckFromOther" : "speckFromOwn";
+    // const ComponentClass = "speckFromOther";
+    const avatar = messageUser.avatar;
+    const message = item.data.split("<br>");
     return (
-      <List.Item className={` ${ComponentClass}`}>
+      <List.Item className={`${ComponentClass}`}>
         <List.Item.Meta
           avatar={<Avatar size="large" shape="square" src={avatar} />}
           description={message.map((i, d) => {
@@ -40,8 +39,8 @@ class ListComponent extends PureComponent {
     }
   }
   render() {
-    const { userInfo, messageList } = this.props;
-    // const { isSelf } = this.state;
+    const { messageUser, messageList } = this.props;
+
     // 生成props
     const ListProps = {
       ref: "talkList",
@@ -52,19 +51,19 @@ class ListComponent extends PureComponent {
       dataSource: messageList
     };
     return (
-      <List {...ListProps} renderItem={this.renderItem.bind(this, userInfo)} />
+      <List {...ListProps} renderItem={this.renderItem.bind(this, messageUser)} />
     );
   }
   componentWillReceiveProps(prev, old) {
-    console.log(prev, old)
+    // console.log(prev, old)
   }
   componentDidMount() {
     // 让滑轮每次都在最下面
     this.scrollHandle()
   }
 }
-const mapStateToProps = ({ message: { messageList: a }, userInfo }) => {
-  let messageList = a.slice();
-  return { messageList, userInfo } || {}
+const mapStateToProps = ({ message }) => {
+  const { messageList, messageUser } = message;
+  return { messageList, messageUser } || {}
 }
 export default connect(mapStateToProps)(ListComponent);

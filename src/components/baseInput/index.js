@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Input } from 'antd';
 
-class base_input extends Component {
+export default class Base_input extends Component {
+
   render() {
     const inputProp = {
       autoComplete: "true",
@@ -25,4 +26,3 @@ class base_input extends Component {
     return false;
   }
 }
-export default base_input

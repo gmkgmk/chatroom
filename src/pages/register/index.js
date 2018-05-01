@@ -5,7 +5,14 @@ import RegisterInput from './../../components/BaseInput';
 import "./style.css";
 const FormItem = Form.Item;
 const prefix = "Register";
-class Register extends PureComponent {
+
+
+@connect(({ loading }) => {
+  const isLoading = loading.global
+  return { isLoading }
+})
+@Form.create({})
+export default class Register extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,7 +24,7 @@ class Register extends PureComponent {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const {  usernameActive, passwordActive } = this.state;
+    const { usernameActive, passwordActive } = this.state;
     const suffixUserName = usernameActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'username')} /> : null;
     const suffixPassword = passwordActive ? <Icon type="close-circle" onClick={this.emitEmpty.bind(this, 'password')} /> : null;
     return (
@@ -130,27 +137,13 @@ class Register extends PureComponent {
     const state = this.state
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(state)
+        this.props.dispatch({
+          type: "login/register",
+          payload: state
+        })
       }
     })
   }
 }
 
 
-const WrappedHorizontalLoginForm = Form.create({})(Register);
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    register: (value) => {
-      dispatch({
-        type: "login/register",
-        payload: value
-      })
-    }
-  }
-}
-const mapStateToProps = ({ loading }) => {
-  const isLoading = loading.global
-  return { isLoading }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(WrappedHorizontalLoginForm);

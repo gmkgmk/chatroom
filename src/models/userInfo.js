@@ -1,4 +1,5 @@
 import { listen } from '../services/socket';
+import { routerRedux } from 'dva/router';
 
 const userInfo = {
   namespace: "userInfo",
@@ -16,7 +17,7 @@ const userInfo = {
     password: "",
     updateTime: "",
     regTime: "",
-    friendsList: "",
+    friendList: [],
   },
   reducers: {
     set(state, { payload }) {
@@ -30,9 +31,19 @@ const userInfo = {
   effects: {
     *init({ payload = {} }, { put }) {
       const { data: { payload: { userInfo } } } = payload;
+      if (!userInfo.pid) {
+        yield put(routerRedux.push('/register'));
+        return
+      }
       yield put({
         type: "set",
         payload: userInfo
+      });
+    },
+    *update({ payload = {} }, { put }) {
+      yield put({
+        type: "set",
+        payload,
       });
     },
   },

@@ -2,13 +2,26 @@ import { PureComponent } from "react";
 import "./style.css";
 import { connect } from 'dva';
 import SideItems from "./../../../../HOC/sideItemHOD";
+import PropTypes from 'prop-types';
 
-@connect(({ userInfo }) => {
-  return userInfo
+@connect(({ userInfo = {} }) => {
+  return userInfo;
 })
 export default class SideList extends PureComponent {
-  onClickHandle = () => {
-    console.log("点击")
+  static propTypes = {
+    friendList: PropTypes.array.isRequired
+  }
+  onClickHandle = (user) => {
+    this.props.dispatch({
+      type: `chat/set`,
+      payload: user
+    });
+    this.props.dispatch({
+      type: `userInfo/update`,
+      payload: {
+        chatPid: user.pid
+      }
+    });
   }
   ListItem = (item, idx) => {
     const onLine = (
@@ -16,9 +29,10 @@ export default class SideList extends PureComponent {
         <span className={`circle ${item.onLine ? 'online' : ''}`}></span>
       </p>
     )
-
+    const activePid = this.props.chatPid;
+    const isActive = (activePid === item.pid) ? 'active' : ''
     return (
-      <article data-id={item.key} key={idx} className={`chat_item  active`} onClick={this.onClickHandle.bind(this, item)}>
+      <article data-id={item.key} key={idx} className={`chat_item ${isActive}`} onClick={this.onClickHandle.bind(this, item)}>
         <SideItems item={item} nameClass="nickname_text" children={onLine} />
       </article >
     );

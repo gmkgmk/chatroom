@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import "./style.css";
-import ContentList from "./components/List";
+import ContentList from "./List";
 
 const { Content } = Layout;
 

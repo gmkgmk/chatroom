@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 
-class SiderSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export default class SideSearch extends Component {
   render() {
     return (
       <div className="search_bar">
@@ -16,4 +12,3 @@ class SiderSearch extends Component {
   }
 }
 
-export default SiderSearch;
