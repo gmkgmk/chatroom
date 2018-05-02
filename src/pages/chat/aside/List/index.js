@@ -26,7 +26,7 @@ export default class SideList extends PureComponent {
   ListItem = (item, idx) => {
     const onLine = (
       <p className="info-box">
-        <span className={`circle ${item.onLine ? 'online' : ''}`}></span>
+        <span className={`circle ${item.online ? 'online' : ''}`}></span>
       </p>
     )
     const activePid = this.props.chatPid;
@@ -39,7 +39,7 @@ export default class SideList extends PureComponent {
   }
   render() {
     const { friendList = [] } = this.props;
-
+    console.log(this.props)
     let renderList = [];
     if (friendList.length > 0) {
       renderList = friendList.map(this.ListItem)

@@ -55,7 +55,6 @@ class ListComponent extends PureComponent {
     );
   }
   componentWillReceiveProps(prev, old) {
-    // console.log(prev, old)
   }
   componentDidMount() {
     // 让滑轮每次都在最下面

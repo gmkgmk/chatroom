@@ -15,11 +15,9 @@ const message = {
       };
       return result;
     },
-    update(state, { payload:{message,person} }) {
+    update(state, { payload: { message, person } }) {
       const messageList = [...state.messageList, message];
-      const messageUser = person;
-      console.log(messageList)
-      console.log(messageUser)
+      const messageUser = person || state.messageUser;
       let result = {
         messageList,
         messageUser
@@ -56,19 +54,30 @@ const message = {
         message,
         person: userInfo
       })
+
     },
-    *msgBySelf({ payload: { message } }, { put, select }) {
-      const { message: { messageList }, userInfo } = yield select(state => state);
-      messageList.push({
-        message,
+    *privateSelf({ payload: { message } }, { put, select }) {
+      // 自己发的就用自己的userPid加入数组
+      const { userInfo } = yield select(state => state);
+      const payload = {
+        message: {
+          data: message,
+          pid: userInfo.pid
+        },
         person: userInfo
-      });
+      }
       yield put({
-        type: "set",
-        payload: messageList
+        type: "setMessage",
+        payload,
       });
     },
-    *getMessage({payload:{data:{payload}}}, { put }) {
+    *getMessage({ payload: { data: { payload } } }, { put }) {
+      yield put({
+        type: "setMessage",
+        payload
+      });
+    },
+    *setMessage({ payload }, { put }) {
       yield put({
         type: "update",
         payload

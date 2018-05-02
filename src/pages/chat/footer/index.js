@@ -28,7 +28,7 @@ class FooterComponent extends React.Component {
       payload: { message: value }
     })
     dispatch({
-      type: "message/msgBySelf",
+      type: "message/privateSelf",
       payload: { message: value }
     })
     this.pre.innerHTML = null
